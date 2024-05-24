@@ -1,0 +1,14 @@
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.AssemblyInfoInputs.cache
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.AssemblyInfo.cs
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.csproj.CoreCompileInputs.cache
+D:\ProjetoBanco\bin\Debug\net8.0\ProjetoBanco.exe
+D:\ProjetoBanco\bin\Debug\net8.0\ProjetoBanco.deps.json
+D:\ProjetoBanco\bin\Debug\net8.0\ProjetoBanco.runtimeconfig.json
+D:\ProjetoBanco\bin\Debug\net8.0\ProjetoBanco.dll
+D:\ProjetoBanco\bin\Debug\net8.0\ProjetoBanco.pdb
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.dll
+D:\ProjetoBanco\obj\Debug\net8.0\refint\ProjetoBanco.dll
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.pdb
+D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.genruntimeconfig.cache
+D:\ProjetoBanco\obj\Debug\net8.0\ref\ProjetoBanco.dll

@@ -1,4 +1,8 @@
 ﻿using System.Diagnostics.Tracing;
+using ProjetoBanco.Models;
+using ProjetoBanco.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 internal class Program
 {
@@ -8,14 +12,69 @@ internal class Program
         bool repete = true;
         do {
             Menu();
+            Console.WriteLine(DateTime.Now);
             int esc = Int32.Parse(Console.ReadLine());
             switch (esc)
             {
                 case 1:
                     Console.Clear();
+                    Cabecalho();
+                    Console.Write("Insira seu nome: ");
+                    string nome = Console.ReadLine();
+                    Console.Write("Insira seu Sobrenome: ");
+                    string sobrenome = Console.ReadLine();
+                    Console.Write("Insira sua Data de nascimento [dd/MM/yyyy]: ");
+                    DateTime nascimento = DateTime.Parse(Console.ReadLine());
+                    if (!VerificaNascimento(nascimento))
+                    {
+                        Console.WriteLine("O Banco Estrela só aceita usuários maiores de idade.");
+                        break;
+                    }
+                    Console.Clear();
+                    Cabecalho();
+                    Console.WriteLine($"Olá, {nome} {sobrenome}, vamos continuar com o seu cadastro!");
+                    bool erroVerificacao;
+                    do
+                    {
+                        erroVerificacao = false;
+                        Console.Write("Insira um nome de usuário: ");
+                        string username = Console.ReadLine();
+
+                        if (UsuarioExiste(username))
+                        {
+                            Console.WriteLine("Opa! Esse nome de usuário ja existe! Escolha outro.");
+                            Thread.Sleep(1500);
+                            erroVerificacao = true;
+                        }
+
+                        if (!UsernameAprovado(username))
+                        {
+                            Console.WriteLine("O nome de usuário não pode conter espaços em branco. Tente novamente.");
+                            Thread.Sleep(1500);
+                            erroVerificacao = true;
+                        }
+
+                    } while (erroVerificacao);
+                    do {
+                        erroVerificacao = false;
+                        Console.Write("Insira uma senha: ");
+                        string senha = Console.ReadLine();
+
+                        if (!SenhaAprovada(senha))
+                        {
+                            Console.WriteLine("Ops, sua senha não bate com os requisitos mínimos:");
+                            Console.WriteLine(" - MIN 8 CARACTERES");
+                            Console.WriteLine(" - MIN 1 CARACTER ESPECIAL");
+                            Console.WriteLine(" - MIN 1 NUMERO");
+                            Console.WriteLine(" - MIN 1 LETRA MAIÚSCULA");
+                            Console.WriteLine(" - MIN 1 LETRA MINÚSCULA");
+                            Thread.Sleep(2000);
+                            erroVerificacao = true;
+                        }
+                    } while (erroVerificacao);
                     break;
                     
-                case 2:
+                case 2:          
                     Console.Clear();
                     break;
 
@@ -80,4 +139,66 @@ internal class Program
         }
         Console.WriteLine("Encerrando o programa...");
     }
+
+    private static void Cabecalho()
+    {
+        Console.WriteLine("+---------------------+");
+        Console.WriteLine("|  BANCO  ★  ESTRELA  |");
+        Console.WriteLine("+---------------------+");
+    }
+
+    private static bool VerificaNascimento(DateTime data)
+    {
+        DateTime anoAtual = DateTime.Now;
+        if (anoAtual.Year - data.Year < 18)
+            return false;
+    
+        return true;
+    }
+
+    private static bool UsuarioExiste(string nomeDeUsuario)
+    {
+        return false;
+    }
+
+    private static bool UsernameAprovado(string nomeDeUsuario)
+    {
+        foreach (char c in nomeDeUsuario)
+        {
+            if (c == ' ')
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool SenhaAprovada(string senha)
+    {
+        bool caracterEspecial = false;
+        bool numeros = false;
+        bool letraMin = false;
+        bool letraMai = false;
+        if (senha.Length < 8)
+            return false;
+
+        foreach (char c in senha)
+        {
+            if (c == '!' || c == '@' || c == '#' || c == '$' || c == '%' || c == '&' || c == '.' || c == ',')
+                caracterEspecial = true;
+            if (char.IsNumber(c))
+                numeros = true;
+            if (char.IsUpper(c))
+                letraMai = true;
+            if (char.IsLower(c))
+                letraMin = true;
+        }
+
+        if (!caracterEspecial || !numeros || !letraMai || !letraMin)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 }

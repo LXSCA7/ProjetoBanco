@@ -7,7 +7,12 @@ Projeto de um Banco fictício, chamado de Banco Estrela. O projeto foi feito ape
 # Sumário:
 
 1. [Funcionamento do código](#funcionamento-do-código)
-1. [Menu de opções]()
+1. [Sobre cada opção](#sobre-cada-opção)
+    - [Criar uma conta](#1-criar-uma-conta)
+    - [Fazer Login](#2-fazer-login)
+    - [Encerrar sua conta](#3-encerrar-sua-conta)
+    - [Realizar depósito de outro banco](#4-realizar-um-depósito-de-outro-banco)
+    - [Sair](#5-sair)
 1. []()
 1. [Tabela SQL](#tabela)
 
@@ -99,15 +104,45 @@ Caso as duas verificações sejam validas, a seguinte mensagem será escrita na 
 Olá [NOME], seja bem-vindo(a) de volta!
 ```
 
-Em seguida outro menu de opções irá aparecer.
+Em seguida outro [menu de opções](#menu-pós-login) irá aparecer.
 
 ---
 
 ### [3] Encerrar sua conta
 
+Ao decidir encerrar uma conta, o usuário receberá o seguinte:
+
+```
+Digite nome de usuário:
+
+Digite sua senha:
+Confirme sua senha:
+
+// verificações
+
+Conta encerrada. Até mais!
+```
+
 ---
 
 ### [4] Realizar um depósito de outro banco
+
+Essa opção serve apenas para finalidade de inserir um saldo nas contas e facilitar os testes com o banco de dados. Ao selecionar, o seguinte é escrito na tela:
+
+```
+Digite o número da conta:
+Digite o valor que será enviado para {Nome} {Sobrenome}: 
+
+----------------
+
+Confirmação:
+
+Número da conta: {Id}
+Nome completo: {Nome} {Sobrenome}
+
+Você deseja depositar {Valor} para {Nome} {Sobrenome}? [S / N]: 
+
+```
 
 ---
 
@@ -115,11 +150,24 @@ Em seguida outro menu de opções irá aparecer.
 
 Encerra o programa.
 
+---
 
+## Menu pós login:
+
+```
+Olá, {Nome}
+
+Seu saldo: {Saldo}
+
+[1] Realizar um saque
+[2] Realizar uma transferência
+[3] Realizar um depósito
+
+[4] Finalizar sessão
+```
 
 ## Tabela:
-
 | Id | Username | Senha | NomeCliente | SobrenomeCliente |  Saldo  |
 | -- | -------- | ----- | ----------- | ---------------- |  -----  |
-| 1  | usuario01 | ***** | Nome       | Sobrenome        | 9999.99 | 
-| 2  | usuario02 | ***** | Nome       | Sobrenome        | 9999.99 | 
+| 1  | usuario01| *****| Cliente      | Um               | 9999.99 | 
+| 2  | user__002| *****| Segundo      | Cliente          | 0000.00 | 

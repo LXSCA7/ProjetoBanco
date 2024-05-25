@@ -31,5 +31,14 @@ namespace ProjetoBanco.Controllers
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
         }
+
+        public void AddSaldo(Usuario user, int id,decimal valor)
+        {
+            var serAdicionado = _context.Usuarios.Find(id);
+            serAdicionado.Saldo += valor;
+
+            _context.Update(serAdicionado);
+            _context.SaveChanges();
+        }
     }
 }

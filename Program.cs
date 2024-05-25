@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.Tracing;
 using ProjetoBanco.Models;
 using ProjetoBanco.Context;
+using ProjetoBanco.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -12,7 +13,6 @@ internal class Program
         bool repete = true;
         do {
             Menu();
-            Console.WriteLine(DateTime.Now);
             int esc = Int32.Parse(Console.ReadLine());
             switch (esc)
             {
@@ -25,6 +25,7 @@ internal class Program
                     string sobrenome = Console.ReadLine();
                     Console.Write("Insira sua Data de nascimento [dd/MM/yyyy]: ");
                     DateTime nascimento = DateTime.Parse(Console.ReadLine());
+                    nascimento = nascimento.Date;
                     if (!VerificaNascimento(nascimento))
                     {
                         Console.WriteLine("O Banco Estrela só aceita usuários maiores de idade.");
@@ -34,23 +35,25 @@ internal class Program
                     Cabecalho();
                     Console.WriteLine($"Olá, {nome} {sobrenome}, vamos continuar com o seu cadastro!");
                     bool erroVerificacao;
+                    string username;
+                    string senha;
                     do
                     {
                         erroVerificacao = false;
                         Console.Write("Insira um nome de usuário: ");
-                        string username = Console.ReadLine();
+                        username = Console.ReadLine();
 
                         if (UsuarioExiste(username))
                         {
                             Console.WriteLine("Opa! Esse nome de usuário ja existe! Escolha outro.");
-                            Thread.Sleep(1500);
+                            Thread.Sleep(300);
                             erroVerificacao = true;
                         }
 
                         if (!UsernameAprovado(username))
                         {
                             Console.WriteLine("O nome de usuário não pode conter espaços em branco. Tente novamente.");
-                            Thread.Sleep(1500);
+                            Thread.Sleep(300);
                             erroVerificacao = true;
                         }
 
@@ -58,7 +61,7 @@ internal class Program
                     do {
                         erroVerificacao = false;
                         Console.Write("Insira uma senha: ");
-                        string senha = Console.ReadLine();
+                        senha = Console.ReadLine();
 
                         if (!SenhaAprovada(senha))
                         {
@@ -72,6 +75,28 @@ internal class Program
                             erroVerificacao = true;
                         }
                     } while (erroVerificacao);
+
+                    Console.Clear();
+                    Usuario novoUsuario = new Usuario
+                    {
+                        Nome = nome,
+                        Sobrenome = sobrenome,
+                        DataDeNascimento = nascimento,
+                        Username = username,
+                        Senha = senha,
+                        Saldo = 0.00M
+                    };
+
+                    UsuariosContext context = new UsuariosContext();
+                    UsuarioController usuarioController = new UsuarioController(context);
+                    usuarioController.CriarConta(novoUsuario);
+                    CriacaoDaContaEscrito();
+                    Console.Clear();
+                    Cabecalho();
+                    Console.WriteLine($"{nome} {sobrenome} sua conta foi criada com sucesso!");
+                    Console.WriteLine($"O Banco Estrela te da as boas-vindas!");
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     break;
                     
                 case 2:          
@@ -116,6 +141,29 @@ internal class Program
         Console.Write("| SUA ESCOLHA: ");
     }
 
+    private static void CriacaoDaContaEscrito()
+    {
+        int repetitions = 6;
+        int interval = 230; // 230ms
+
+        for (int i = 0; i < repetitions; i++)
+        {
+            switch (i % 3)
+            {
+                case 0:
+                    Console.Write("Criando sua conta.  \r");
+                    break;
+                case 1:
+                    Console.Write("Criando sua conta.. \r");
+                    break;
+                case 2:
+                    Console.Write("Criando sua conta... \r");
+                    break;
+            }
+            Thread.Sleep(interval);
+        }
+        Console.WriteLine("Criando sua conta...");
+    }
     private static void EncerraPrograma()
     {
         int repetitions = 6;
@@ -158,7 +206,10 @@ internal class Program
 
     private static bool UsuarioExiste(string nomeDeUsuario)
     {
-        return false;
+        using (var db = new UsuariosContext())
+        {
+            return db.Usuarios.Any(u => u.Username == nomeDeUsuario);
+        }
     }
 
     private static bool UsernameAprovado(string nomeDeUsuario)
@@ -183,6 +234,9 @@ internal class Program
 
         foreach (char c in senha)
         {
+            if (c == ' ')
+                return false;
+
             if (c == '!' || c == '@' || c == '#' || c == '$' || c == '%' || c == '&' || c == '.' || c == ',')
                 caracterEspecial = true;
             if (char.IsNumber(c))

@@ -1,4 +1,4 @@
-# Projeto Banco
+# Banco Estrela ★
 
 Início em 23/05/2024
 
@@ -22,16 +22,28 @@ Projeto de um Banco fictício, chamado de Banco Estrela. O projeto foi feito ape
 Ao iniciar o programa, uma interface do banco em console é exibida pro usuário com as seguintes opções:
 
 ```
-+------------------------------------------+
-|                                          |
-| [1] Criar uma conta                      |
-| [2] Fazer login                          |
-| [3] Encerrar sua conta                   |
-| [4] Realizar um depósito de outro banco  |
-|                                          |
-| [5] Sair                                 |
-|                                          |
-+------------------------------------------+
++ -------------------------------------------+
+|             BANCO  ★  ESTRELA             |
++--------------------------------------------+
+|                                            |
+| [1] Criar uma conta                        |
+| [2] Fazer Login                            |
+| [3] Encerrar sua conta                     |
+| [4] Fazer depósito de outro banco          |
+| [5] Listar usuários cadastrados            |
+|                                            |
+| [6] Sair                                   |
+|                                            |
++--------------------------------------------+
+| SUA ESCOLHA: 
+```
+
+O menu é chamado pela função `Menu();`, além disso, também tem a função `Cabecalho();` que escreve o seguinte na tela:
+
+```
++---------------------+
+|  BANCO  ★  ESTRELA |
++---------------------+
 ```
 
 ## Sobre cada opção:

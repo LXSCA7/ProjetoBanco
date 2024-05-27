@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Net.NetworkInformation;
+using System.Security;
+using System.ComponentModel;
 
 internal class Program
 {
@@ -100,66 +102,6 @@ internal class Program
         Console.WriteLine("+---------------------+");
     }
 
-    private static bool VerificaNascimento(DateTime data)
-    {
-        DateTime anoAtual = DateTime.Now;
-        if (anoAtual.Year - data.Year < 18)
-            return false;
-    
-        return true;
-    }
-
-    private static bool UsuarioExiste(string nomeDeUsuario)
-    {
-        using (var db = new UsuariosContext())
-        {
-            return db.Usuarios.Any(u => u.Username == nomeDeUsuario);
-        }
-    }
-
-    private static bool UsernameAprovado(string nomeDeUsuario)
-    {
-        foreach (char c in nomeDeUsuario)
-        {
-            if (c == ' ')
-                return false;
-        }
-
-        return true;
-    }
-
-    private static bool SenhaAprovada(string senha)
-    {
-        bool caracterEspecial = false;
-        bool numeros = false;
-        bool letraMin = false;
-        bool letraMai = false;
-        if (senha.Length < 8)
-            return false;
-
-        foreach (char c in senha)
-        {
-            if (c == ' ')
-                return false;
-
-            if (c == '!' || c == '@' || c == '#' || c == '$' || c == '%' || c == '&' || c == '.' || c == ',')
-                caracterEspecial = true;
-            if (char.IsNumber(c))
-                numeros = true;
-            if (char.IsUpper(c))
-                letraMai = true;
-            if (char.IsLower(c))
-                letraMin = true;
-        }
-
-        if (!caracterEspecial || !numeros || !letraMai || !letraMin)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
     // casos:
     private static void PrimeiroCaso()
     {
@@ -172,7 +114,7 @@ internal class Program
                     Console.Write("Insira sua Data de nascimento [dd/MM/yyyy]: ");
                     DateTime nascimento = DateTime.Parse(Console.ReadLine());
                     nascimento = nascimento.Date;
-                    if (!VerificaNascimento(nascimento))
+                    if (!Verificacao.VerificaNascimento(nascimento))
                     {
                         Console.WriteLine("O Banco Estrela só aceita usuários maiores de idade.");
                         return;
@@ -183,20 +125,22 @@ internal class Program
                     bool erroVerificacao;
                     string username;
                     string senha;
+                    string senha2;
                     do
                     {
                         erroVerificacao = false;
                         Console.Write("Insira um nome de usuário: ");
                         username = Console.ReadLine();
+                        Escreve("Verificando nome de usuário");
 
-                        if (UsuarioExiste(username))
+                        if (Verificacao.UsuarioExiste(username))
                         {
                             Console.WriteLine("Opa! Esse nome de usuário já existe! Escolha outro.");
                             Thread.Sleep(300);
                             erroVerificacao = true;
                         }
 
-                        if (!UsernameAprovado(username))
+                        if (!Verificacao.UsernameAprovado(username))
                         {
                             Console.WriteLine("O nome de usuário não pode conter espaços em branco. Tente novamente.");
                             Thread.Sleep(300);
@@ -204,20 +148,35 @@ internal class Program
                         }
 
                     } while (erroVerificacao);
+                    Console.WriteLine("Certo! Seu nome de usuário é " + username);
                     do {
                         erroVerificacao = false;
                         Console.Write("Insira uma senha: ");
-                        senha = Console.ReadLine();
+                        SecureString testeSenha = PegaSenhaEscondido();
 
-                        if (!SenhaAprovada(senha))
+                        senha = new System.Net.NetworkCredential(string.Empty, testeSenha).Password;
+
+                        if (!Verificacao.SenhaAprovada(senha))
                         {
-                            Console.WriteLine("Ops, sua senha não bate com os requisitos mínimos:");
+                            Console.WriteLine("\nOps, sua senha não bate com os requisitos mínimos:");
                             Console.WriteLine(" - MIN 8 CARACTERES");
                             Console.WriteLine(" - MIN 1 CARACTER ESPECIAL");
                             Console.WriteLine(" - MIN 1 NUMERO");
                             Console.WriteLine(" - MIN 1 LETRA MAIÚSCULA");
                             Console.WriteLine(" - MIN 1 LETRA MINÚSCULA");
                             Thread.Sleep(2000);
+                            erroVerificacao = true;
+                        }
+                    } while (erroVerificacao);
+                    do
+                    {
+                        erroVerificacao = false;
+                        Console.Write("\nConfirme sua senha: ");
+                        SecureString senhaEsc = PegaSenhaEscondido();
+                        senha2 = new System.Net.NetworkCredential(string.Empty, senhaEsc).Password;
+                        if (senha2 != senha)
+                        {
+                            Console.WriteLine("\nSuas senhas não correspondem. Tente novamente.");
                             erroVerificacao = true;
                         }
                     } while (erroVerificacao);
@@ -243,6 +202,30 @@ internal class Program
                     Console.WriteLine($"O Banco Estrela te da as boas-vindas!");
                     Thread.Sleep(3000);
                     Console.Clear();
+    }
+
+    private static SecureString PegaSenhaEscondido()
+    {
+        SecureString senha = new SecureString();
+        ConsoleKeyInfo tecla;
+        do
+        {
+            tecla = Console.ReadKey(true);
+            if (tecla.Key != ConsoleKey.Backspace)
+            {
+                senha.AppendChar(tecla.KeyChar);
+                Console.Write("*");
+            }
+            else
+            {
+                if (senha.Length > 0)
+                {
+                    senha.RemoveAt(senha.Length - 1);
+                    Console.Write("\b \b");
+                }
+            }
+        } while (tecla.Key != ConsoleKey.Enter);
+        return senha;
     }
 
     // caso 2
@@ -278,7 +261,7 @@ internal class Program
                 return;
             }
             Console.WriteLine($"Número da Conta: {receber.Id} | Nome: {receber.Nome} {receber.Sobrenome}");
-            Console.Write("Isso está correto? [S/N]");
+            Console.Write("Isso está correto? [S/N]: ");
             string correto = Console.ReadLine();
             correto = correto.ToUpper();
             char resposta = correto[0];
@@ -298,5 +281,4 @@ internal class Program
             Console.Clear();
         }
     }
-
 }

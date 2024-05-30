@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Net.NetworkInformation;
 using System.Security;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 internal class Program
 {
@@ -24,8 +25,16 @@ internal class Program
                     PrimeiroCaso();
                     break;
                     
-                case 2:          
+                case 2:
+                    Usuario userLogado = CasoLogin(); 
                     Console.Clear();
+                    if (userLogado == null)
+                    {
+                        Console.WriteLine("Não foi possível realizar seu login. Tente novamente mais tarde!");
+                        Thread.Sleep(500);
+                        break;
+                    }
+                    InfoLogado(userLogado);
                     break;
 
                 case 3:
@@ -204,6 +213,92 @@ internal class Program
                     Console.Clear();
     }
 
+    private static Usuario CasoLogin()
+    {
+        Console.Clear();
+        Cabecalho();
+        Console.Write("Nome de usuário: ");
+        string loginUsuario = Console.ReadLine();
+        Escreve("Buscando nome de usuário");
+        if(!Verificacao.UsuarioExiste(loginUsuario))
+        {
+            Console.WriteLine("Usuário não encontrado.");
+            return null;
+        }
+        bool erroVerificacao;
+        int quantTentativas = 0;
+        string loginSenha;
+        do
+        {
+            erroVerificacao = false;
+            Console.Write("Digite sua senha: ");
+            SecureString loginSenhaSegura = PegaSenhaEscondido();
+            loginSenha = new System.Net.NetworkCredential(string.Empty, loginSenhaSegura).Password; // converte senha
+            // senhaTeste = Console.ReadLine();
+            UsuariosContext context = new UsuariosContext();
+            UsuarioController usuarioController = new UsuarioController(context);
+
+            if (!usuarioController.SenhaCorreta(loginUsuario, loginSenha) && quantTentativas < 3)
+            {
+                Console.WriteLine("\nSenha incorreta. Tente novamente");
+                erroVerificacao = true;
+                quantTentativas++;
+            }
+            if (quantTentativas >= 3)
+            {
+                Console.WriteLine("Tentativa máxima atingida.");
+                Thread.Sleep(400);
+                return null;
+            }
+        } while (erroVerificacao);
+
+        UsuariosContext context2 = new UsuariosContext();
+        UsuarioController usuarioController2 = new UsuarioController(context2);
+        Usuario usuarioLogado = usuarioController2.RealizaLogin(loginUsuario, loginSenha);
+        if (usuarioLogado != null)
+        {
+            return usuarioLogado;
+        }
+        return null;
+    }
+    
+    private static void InfoLogado(Usuario user)
+    {
+        bool logout = false;
+        do 
+        {
+            Cabecalho();
+            Console.WriteLine("Olá, " + user.Nome);
+            Console.WriteLine("Seu saldo: " + user.Saldo);
+            Console.WriteLine("[1] Conferir suas informações");
+            Console.WriteLine("[2] Realizar um saque");
+            Console.WriteLine("[3] Realizar uma transferência");
+            Console.WriteLine("[4] Editar informações da conta");
+            Console.WriteLine("[5] Deletar sua conta\n");
+
+            Console.WriteLine("[6] Sair");
+            Console.Write("Escolha: ");
+            int esc = Int32.Parse(Console.ReadLine());
+            switch (esc)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    Logado.Transferir(user);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    logout = true;
+                    break;
+            }
+        } while (!logout);
+        Console.WriteLine("Saindo da conta...");
+    }
     private static SecureString PegaSenhaEscondido()
     {
         SecureString senha = new SecureString();
@@ -211,14 +306,14 @@ internal class Program
         do
         {
             tecla = Console.ReadKey(true);
-            if (tecla.Key != ConsoleKey.Backspace)
+            if (tecla.Key != ConsoleKey.Backspace && tecla.Key != ConsoleKey.Enter)
             {
                 senha.AppendChar(tecla.KeyChar);
                 Console.Write("*");
             }
             else
             {
-                if (senha.Length > 0)
+                if (senha.Length > 0 && tecla.Key != ConsoleKey.Enter)
                 {
                     senha.RemoveAt(senha.Length - 1);
                     Console.Write("\b \b");

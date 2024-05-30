@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjetoBanco.Context;
@@ -67,5 +68,6 @@ namespace ProjetoBanco.Models
 
             return true;
         }
+    
     }
 }

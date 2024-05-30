@@ -12,7 +12,7 @@ namespace ProjetoBanco.Models
 {
     public class Logado
     {
-        public static void MudarSenhaDuda()
+        public static void MudarSenha()
         {
             using (var db = new UsuariosContext())
             {

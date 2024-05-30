@@ -5,6 +5,10 @@ Início em 23/05/2024
 
 Projeto de um Banco fictício, chamado de Banco Estrela. O projeto foi feito apenas para fins de estudo sobre banco de dados, CRUD e integração de APIs com .NET usando EntityFramework. Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
 
+## Tecnologias utilizadas:
+
+![Badge](https://img.shields.io/badge/C%23-blue?style=for-the-badge&logo=csharp&logoColor=white) &nbsp; ![!Badge](https://img.shields.io/badge/.NET-blueviolet?style=for-the-badge&logo=dotnet&logoColor=white) &nbsp; ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white) &nbsp;
+
 # Sumário:
 
 1. [Funcionamento do código](#funcionamento-do-código)

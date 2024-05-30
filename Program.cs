@@ -269,7 +269,7 @@ internal class Program
         {
             Cabecalho();
             Console.WriteLine("Olá, " + user.Nome);
-            Console.WriteLine("Seu saldo: " + user.Saldo);
+            Console.WriteLine("Seu saldo: R$ " + user.Saldo);
             Console.WriteLine("[1] Conferir suas informações");
             Console.WriteLine("[2] Realizar um saque");
             Console.WriteLine("[3] Realizar uma transferência");
@@ -282,6 +282,9 @@ internal class Program
             switch (esc)
             {
                 case 1:
+                    Console.Clear();
+                    Cabecalho();
+                    Logado.MostrarInformacoes(user);
                     break;
                 case 2:
                     break;
@@ -294,10 +297,11 @@ internal class Program
                     break;
                 default:
                     logout = true;
+                    Console.Clear();
                     break;
             }
         } while (!logout);
-        Console.WriteLine("Saindo da conta...");
+        Escreve("Saindo da conta");
     }
     private static SecureString PegaSenhaEscondido()
     {
@@ -363,7 +367,7 @@ internal class Program
             if (resposta == 'N')
                 return;
             
-            Console.Write($"Insira o valor que será depositado para {receber.Nome} {receber.Sobrenome}: ");
+            Console.Write($"Insira o valor que será depositado para {receber.Nome} {receber.Sobrenome}: R$");
             decimal valorDepositado = Decimal.Parse(Console.ReadLine());
             // depositando...
 

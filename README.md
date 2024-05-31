@@ -3,7 +3,7 @@
 Projeto não finalizado.
 Início em 23/05/2024
 
-Projeto de um Banco fictício, chamado de Banco Estrela. O projeto foi feito apenas para fins de estudo sobre banco de dados, CRUD e integração de APIs com .NET usando EntityFramework. Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
+O Banco estrela é um projeto de um banco fictício feito apenas para fins de estudo sobre banco de dados, CRUD e integração de APIs com .NET usando EntityFramework. Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
 
 ## Tecnologias utilizadas:
 
@@ -26,22 +26,7 @@ Projeto de um Banco fictício, chamado de Banco Estrela. O projeto foi feito ape
 
 Ao iniciar o programa, uma interface do banco em console é exibida pro usuário com as seguintes opções:
 
-```
-+ -------------------------------------------+
-|             BANCO  ★  ESTRELA             |
-+--------------------------------------------+
-|                                            |
-| [1] Criar uma conta                        |
-| [2] Fazer Login                            |
-| [3] Encerrar sua conta                     |
-| [4] Fazer depósito de outro banco          |
-| [5] Listar usuários cadastrados            |
-|                                            |
-| [6] Sair                                   |
-|                                            |
-+--------------------------------------------+
-| SUA ESCOLHA: 
-```
+![Menu inicial](Imagens/menu-inicial.png)
 
 O menu é chamado pela função `Menu();`, além disso, também tem a função `Cabecalho();` que escreve o seguinte na tela:
 
@@ -104,45 +89,13 @@ E novamente o menu de opções aparece.
 
 Ao escolher a opção dois, mais uma vez o console é limpo e é pedido pra inserir:
 
-```
-Insira seu nome de usuário:
+![Login](Imagens/login.png)
 
-// verifica se o nome de usuario esta no banco de dados
-
-Insira sua senha:
-
-// verifica se a senha condiz com a senha do banco de dados
-
-```
-
-Caso as duas verificações sejam validas, a seguinte mensagem será escrita na tela:
-
-```
-Olá [NOME], seja bem-vindo(a) de volta!
-```
-
-Em seguida outro [menu de opções](#menu-pós-login) irá aparecer.
+Caso as duas verificações sejam validas, o usuário estará logado e em seguida, outro [menu de opções](#menu-pós-login) irá aparecer.
 
 ---
 
-### [3] Encerrar sua conta
-
-Ao decidir encerrar uma conta, o usuário receberá o seguinte:
-
-```
-Digite nome de usuário:
-
-Digite sua senha:
-Confirme sua senha:
-
-// verificações
-
-Conta encerrada. Até mais!
-```
-
----
-
-### [4] Realizar um depósito de outro banco
+### [3] Realizar um depósito de outro banco
 
 Essa opção serve apenas para finalidade de inserir um saldo nas contas e facilitar os testes com o banco de dados. Ao selecionar, o seguinte é escrito na tela:
 
@@ -163,28 +116,29 @@ Você deseja depositar {Valor} para {Nome} {Sobrenome}? [S / N]:
 
 ---
 
-### [5] Sair
+### [4] Sair
 
-Encerra o programa.
+![Saindo](Imagens/saindo.png)
 
 ---
 
 ## Menu pós login:
 
-```
-Olá, {Nome}
+![Menu pós login](Imagens/menu-pos-login.png)
 
-Seu saldo: {Saldo}
+### Saque:
 
-[1] Realizar um saque
-[2] Realizar uma transferência
-[3] Realizar um depósito
+![Saque](Imagens/realizando-saque.png)
 
-[4] Finalizar sessão
-```
+### Transferência:
 
-## Tabela:
-| Id | Username | Senha | NomeCliente | SobrenomeCliente |  Saldo  |
-| -- | -------- | ----- | ----------- | ---------------- |  -----  |
-| 1  | usuario01| *****| Cliente      | Um               | 9999.99 | 
-| 2  | user__002| *****| Segundo      | Cliente          | 0000.00 | 
+![Saque](Imagens/realizando-transferencia.png)
+
+## Banco de dados:
+
+| Id | Nome | Sobrenome | Data de Nascimento |     Username  |    Senha     |  Saldo  |
+| -- | -------- | ----- | ------------------ |   ----------- | ------------ |  -----  |
+| 1  | Lucas    | Rocha | 2005-09-27         |   lxsca       | SenhaF0rte!  | 35000,00 | 
+| 2  | Aline    | Santiago | 0000-00-00      | aline         | S3Nha@Forte  | 4400,00 |
+| 3  | Luiz Guilherme |	Bittencourt | 2005-09-06  | luizguinb | MyStr0ngPassword(!) | 3378.07    |
+| 4  | Francisco |	Soares | 1991-01-17 | tiquinho_soares | B0t@fogo | 0,00 |

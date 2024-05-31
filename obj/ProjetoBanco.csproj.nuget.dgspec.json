@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProjetoBanco\\ProjetoBanco.csproj": {}
+    "D:\\projetobanco\\ProjetoBanco.csproj": {}
   },
   "projects": {
-    "D:\\ProjetoBanco\\ProjetoBanco.csproj": {
+    "D:\\projetobanco\\ProjetoBanco.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjetoBanco\\ProjetoBanco.csproj",
+        "projectUniqueName": "D:\\projetobanco\\ProjetoBanco.csproj",
         "projectName": "ProjetoBanco",
-        "projectPath": "D:\\ProjetoBanco\\ProjetoBanco.csproj",
+        "projectPath": "D:\\projetobanco\\ProjetoBanco.csproj",
         "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjetoBanco\\obj\\",
+        "outputPath": "D:\\projetobanco\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config"

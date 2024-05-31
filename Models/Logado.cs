@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
@@ -22,7 +23,6 @@ namespace ProjetoBanco.Models
             if (senhaAtual != user.Senha)
             {
                 Console.WriteLine("Senha incorreta.");
-                Console.WriteLine("Pressione enter para continuar.");
                 EsperaTecla(ConsoleKey.Enter);
                 return;
             }
@@ -37,7 +37,6 @@ namespace ProjetoBanco.Models
                 if (senha == null)
                 {
                     Console.WriteLine("Operação cancelada.");
-                    Console.WriteLine("Pressione enter para continuar.");
                     EsperaTecla(ConsoleKey.Enter);
                 }
                 if (!aprovado)
@@ -51,7 +50,6 @@ namespace ProjetoBanco.Models
             usuarioController.MudarSenha(user, senha);
 
             Console.WriteLine("Sua senha foi alterada com sucesso!");
-            Console.WriteLine("Pressione enter para continuar.");
             EsperaTecla(ConsoleKey.Enter);
         }
 
@@ -74,7 +72,7 @@ namespace ProjetoBanco.Models
                     Console.WriteLine($"Transferência: para {receber.Nome} {receber.Sobrenome}");
                     Console.Write("Isso está correto? [S/N]: ");
                     resposta = char.Parse(Console.ReadLine());
-                    char.ToUpper(resposta);
+                    resposta = char.ToUpper(resposta);
                 }
             } while (resposta == 'N');
             Console.WriteLine($"Seu saldo: {user.Saldo}");
@@ -83,13 +81,16 @@ namespace ProjetoBanco.Models
             if (valorTransferencia > user.Saldo || valorTransferencia <= 0)
             {
                 Console.WriteLine("Impossível realizar a transferência.");
+                return;
             }
 
             Console.Write($"Você realmente deseja realizar uma transferência no valor de R$ {valorTransferencia} para" +
                 $" {receber.Nome} {receber.Sobrenome}? [S/N]: ");
-            char resposta2 = char.Parse(Console.ReadLine());
+            string resposta2 = Console.ReadLine();
+            resposta2 = resposta2.ToUpper();
+            char resposta2C = resposta2[0];
 
-            if (resposta2 == 'N')
+            if (resposta2C == 'N')
             {
                 Console.WriteLine("Transferência cancelada.");
                 return;
@@ -99,13 +100,44 @@ namespace ProjetoBanco.Models
             var usuarioController = new UsuarioController(context);
             usuarioController.TransferirEntreContas(user, receber, valorTransferencia);
             Console.WriteLine("Transferência realizada com sucesso.");
-            Console.WriteLine("Pressione Enter para continuar.");
             EsperaTecla(ConsoleKey.Enter);
         }
     
-    
-        public static void Sacar(Usuario user)
+        public static void ApagarConta(Usuario user)
         {
+            if (user.Saldo > 0)
+            {
+                Console.WriteLine("Não é possível apagar sua conta com saldo. Remova o saldo da sua conta e tente novamente.");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
+            }
+            Console.WriteLine("Poxa! Que pena que deseja excluir sua conta...");
+            Console.Write("Insira seu nome de usuário: ");
+            string username = Console.ReadLine();
+            if (username != user.Username)
+            {
+                Console.WriteLine("Nome de usuário incorreto.");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
+            }
+            Console.Write("Insira sua senha: ");
+            SecureString senha = Program.PegaSenhaEscondido();
+            string senhaString = new System.Net.NetworkCredential(string.Empty, senha).Password;
+            if (senhaString != user.Senha)
+            {
+                Console.WriteLine("Nome de usuário incorreto.");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
+            }
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+
+            usuarioController.RemoverConta(user);
+            Console.WriteLine("Sua conta foi deletada.");
+            EsperaTecla(ConsoleKey.Enter);
+        }
+        public static void Sacar(Usuario user)
+        { 
             decimal valorSaque;
             do
             {
@@ -152,6 +184,7 @@ namespace ProjetoBanco.Models
         }
         public static void EsperaTecla(ConsoleKey key)
         {
+            Console.WriteLine("Pressione enter para continuar.");
             while (Console.ReadKey(true).Key != key)
             { 
 

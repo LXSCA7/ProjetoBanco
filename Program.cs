@@ -305,6 +305,10 @@ internal class Program
                     Console.Clear();
                     break;
                 case 5:
+                    Console.Clear();
+                    Cabecalho();
+                    Logado.ApagarConta(user);
+                    logout = true;
                     break;
                 default:
                     Console.Clear();
@@ -314,7 +318,7 @@ internal class Program
         } while (!logout);
         Escreve("Saindo da conta");
     }
-    private static SecureString PegaSenhaEscondido()
+    public static SecureString PegaSenhaEscondido()
     {
         SecureString senha = new SecureString();
         ConsoleKeyInfo tecla;

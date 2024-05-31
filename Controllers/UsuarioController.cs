@@ -75,6 +75,12 @@ namespace ProjetoBanco.Controllers
             _context.SaveChanges();
         }
 
+        public void RemoverConta(Usuario user)
+        {
+            _context.Remove(user);
+            _context.SaveChanges();
+        }
+
         public void Sacar(Usuario user, decimal valor)
         {
             user.Saldo -= valor;

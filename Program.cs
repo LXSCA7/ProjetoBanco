@@ -80,7 +80,7 @@ internal class Program
         Console.Write("| SUA ESCOLHA: ");
     }
 
-    private static void Escreve(string frase)
+    public static void Escreve(string frase)
     {
         int repetitions = 6;
         int interval = 230; // 230ms
@@ -273,7 +273,7 @@ internal class Program
             Console.WriteLine("[1] Conferir suas informações");
             Console.WriteLine("[2] Realizar um saque");
             Console.WriteLine("[3] Realizar uma transferência");
-            Console.WriteLine("[4] Editar informações da conta");
+            Console.WriteLine("[4] Mudar senha");
             Console.WriteLine("[5] Deletar sua conta\n");
 
             Console.WriteLine("[6] Sair");
@@ -287,17 +287,24 @@ internal class Program
                     Logado.MostrarInformacoes(user);
                     break;
                 case 2:
+                    Console.Clear();
+                    Cabecalho();
+                    Logado.Sacar(user);
+                    Console.Clear();
                     break;
                 case 3:
+                    Console.Clear();
+                    Cabecalho();
                     Logado.Transferir(user);
+                    Console.Clear();
                     break;
                 case 4:
                     break;
                 case 5:
                     break;
                 default:
-                    logout = true;
                     Console.Clear();
+                    logout = true;
                     break;
             }
         } while (!logout);

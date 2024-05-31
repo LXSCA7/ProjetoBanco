@@ -177,7 +177,6 @@ namespace ProjetoBanco.Models
                 Console.WriteLine($"Saldo: R$ {user.Saldo}");
                 Console.WriteLine($"Nome de usuário: {user.Username}");
                 Console.WriteLine($"Senha: {user.Senha}");
-                Console.Write("Pressione enter para continuar."); 
                 EsperaTecla(ConsoleKey.Enter);
                 Console.Clear();
             }

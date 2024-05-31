@@ -39,17 +39,14 @@ internal class Program
 
                 case 3:
                     Console.Clear();
-                    break;
-
-                case 4:
-                    Console.Clear();
                     DepositoOutroBanco();
                     break;
 
-                case 5:
+                case 4:
                     ListaUsuarios();
                     break;
-                case 6:
+
+                case 5:
                     Escreve("Encerrando o programa");
                     repete = false;
                     break;
@@ -70,11 +67,10 @@ internal class Program
         Console.WriteLine("|                                            |");
         Console.WriteLine("| [1] Criar uma conta                        |");
         Console.WriteLine("| [2] Fazer Login                            |");
-        Console.WriteLine("| [3] Encerrar sua conta                     |");
-        Console.WriteLine("| [4] Fazer depósito de outro banco          |");
-        Console.WriteLine("| [5] Listar usuários cadastrados            |");
+        Console.WriteLine("| [3] Fazer depósito de outro banco          |");
+        Console.WriteLine("| [4] Listar usuários cadastrados            |");
         Console.WriteLine("|                                            |");
-        Console.WriteLine("| [6] Sair                                   |");
+        Console.WriteLine("| [5] Sair                                   |");
         Console.WriteLine("|                                            |");
         Console.WriteLine("+--------------------------------------------+");
         Console.Write("| SUA ESCOLHA: ");

@@ -299,6 +299,10 @@ internal class Program
                     Console.Clear();
                     break;
                 case 4:
+                    Console.Clear();
+                    Cabecalho();
+                    Logado.MudarSenha(user);
+                    Console.Clear();
                     break;
                 case 5:
                     break;

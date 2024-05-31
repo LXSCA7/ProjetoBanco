@@ -15,13 +15,44 @@ namespace ProjetoBanco.Models
     {
         public static void MudarSenha(Usuario user)
         {
-            using (var db = new UsuariosContext())
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+            Console.Write("Insira sua senha atual: ");
+            string senhaAtual = Console.ReadLine();
+            if (senhaAtual != user.Senha)
             {
-                UsuariosContext context = new UsuariosContext();
-                var usuarioController = new UsuarioController(context);
-                string senha = Console.ReadLine();
-                usuarioController.MudarSenha(user, senha);
+                Console.WriteLine("Senha incorreta.");
+                Console.WriteLine("Pressione enter para continuar.");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
             }
+            string senha;
+            bool aprovado;
+            do 
+            {
+                Console.WriteLine("Deixe em branco para cancelar.");
+                Console.Write("Insira sua nova senha: ");
+                senha = Console.ReadLine();
+                aprovado = Verificacao.SenhaAprovada(senha);
+                if (senha == null)
+                {
+                    Console.WriteLine("Operação cancelada.");
+                    Console.WriteLine("Pressione enter para continuar.");
+                    EsperaTecla(ConsoleKey.Enter);
+                }
+                if (!aprovado)
+                    Console.WriteLine("Senha não aprovada. Digite novamente. ");
+                if (senha == user.Senha)
+                {
+                    Console.WriteLine("Sua nova senha não pode ser igual a anterior. Tente novamente.");
+                    aprovado = false;
+                }
+            } while (!aprovado);
+            usuarioController.MudarSenha(user, senha);
+
+            Console.WriteLine("Sua senha foi alterada com sucesso!");
+            Console.WriteLine("Pressione enter para continuar.");
+            EsperaTecla(ConsoleKey.Enter);
         }
 
         public static void Transferir(Usuario user)

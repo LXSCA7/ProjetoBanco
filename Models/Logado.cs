@@ -147,7 +147,6 @@ namespace ProjetoBanco.Models
                 if (valorSaque == 0)
                 {
                     Program.Escreve("Cancelando saque");
-                    Console.Write("Pressione enter para continuar."); 
                     EsperaTecla(ConsoleKey.Enter);
                     return;
                 }
@@ -162,7 +161,6 @@ namespace ProjetoBanco.Models
             UsuarioController usuarioController = new(context);
             usuarioController.Sacar(user, valorSaque);
             Console.WriteLine($"Saque realizado. Novo saldo: R$ {user.Saldo}");
-            Console.WriteLine("Aperte enter para continuar. ");
             EsperaTecla(ConsoleKey.Enter);
         }
         public static void MostrarInformacoes(Usuario user)

@@ -67,6 +67,13 @@ namespace ProjetoBanco.Models
                     if (receber == null)
                     {
                         Console.WriteLine("Conta não encontrada...");
+                        EsperaTecla(ConsoleKey.Enter);
+                        return;
+                    }
+                    if (receber.Id == user.Id)
+                    {
+                        Console.WriteLine("Não é possível realizar uma transferência para você mesmo.");
+                        EsperaTecla(ConsoleKey.Enter);
                         return;
                     }
                     Console.WriteLine($"Transferência: para {receber.Nome} {receber.Sobrenome}");
@@ -81,6 +88,7 @@ namespace ProjetoBanco.Models
             if (valorTransferencia > user.Saldo || valorTransferencia <= 0)
             {
                 Console.WriteLine("Impossível realizar a transferência.");
+                EsperaTecla(ConsoleKey.Enter);
                 return;
             }
 

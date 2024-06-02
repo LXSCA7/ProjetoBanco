@@ -3,7 +3,11 @@
 Projeto não finalizado.
 Início em 23/05/2024
 
-O Banco estrela é um projeto de um banco fictício feito apenas para fins de estudo sobre banco de dados, CRUD e integração de APIs com .NET usando EntityFramework. Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
+O Banco estrela é um projeto de um banco fictício feito criado exclusivamente para fins de estudo sobre aplicação de conceito de banco de dados, operações CRUD e integração de APIs com .NET usando Entity Framework.
+
+Durante o desenvolvimento do projeto, consegui compreender melhor o funcionamento de banco de dados, autenticação de usuários, gestão de contas e transações financeiras. A experiência proporcionou uma visão detalhada de como implementar e gerenciar um sistema bancário digital.
+
+ Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
 
 ## Tecnologias utilizadas:
 
@@ -18,7 +22,9 @@ O Banco estrela é um projeto de um banco fictício feito apenas para fins de es
     - [Encerrar sua conta](#3-encerrar-sua-conta)
     - [Realizar depósito de outro banco](#4-realizar-um-depósito-de-outro-banco)
     - [Sair](#5-sair)
-1. []()
+1. [Menu pós login](#menu-pós-login)
+    - [Saque](#saque)
+    - [Transferência](#transferência)
 1. [Tabela SQL](#tabela)
 
 

@@ -157,13 +157,14 @@ namespace ProjetoBanco.Models
         }
         public static void Sacar(Usuario user)
         { 
+            bool continuarSaque = false;
             decimal valorSaque;
             do
             {
                 Console.WriteLine("Digite 0 para cancelar o saque.");
                 Console.Write("Insira o valor: R$ ");
                 valorSaque = decimal.Parse(Console.ReadLine());
-                if (valorSaque == 0)
+                if (valorSaque <= 0)
                 {
                     Program.Escreve("Cancelando saque");
                     EsperaTecla(ConsoleKey.Enter);
@@ -172,8 +173,9 @@ namespace ProjetoBanco.Models
                 if (valorSaque > user.Saldo)
                 {
                     Console.WriteLine("Impossível realizar saque com esse valor. Tente novamente.");
+                    continuarSaque = true;
                 }
-            } while (valorSaque > user.Saldo || valorSaque < 0);
+            } while (continuarSaque);
 
 
             UsuariosContext context = new();

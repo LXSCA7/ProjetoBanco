@@ -122,18 +122,28 @@ namespace ProjetoBanco.Models
             Console.WriteLine("Poxa! Que pena que deseja excluir sua conta...");
             Console.Write("Insira seu nome de usuário: ");
             string username = Console.ReadLine();
-            if (username != user.Username)
+            if (username.ToUpper() != user.Username.ToUpper())
             {
                 Console.WriteLine("Nome de usuário incorreto.");
                 EsperaTecla(ConsoleKey.Enter);
                 return;
             }
+            Console.WriteLine("Deixe em branco para cancelar.");
             Console.Write("Insira sua senha: ");
             SecureString senha = Program.PegaSenhaEscondido();
             string senhaString = new System.Net.NetworkCredential(string.Empty, senha).Password;
+            
+            if (string.IsNullOrWhiteSpace(senhaString))
+            {
+                Console.WriteLine("\n");
+                Program.Escreve("Cancelando operação");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
+            }
+
             if (senhaString != user.Senha)
             {
-                Console.WriteLine("Nome de usuário incorreto.");
+                Console.WriteLine("\nSenha incorreta.");
                 EsperaTecla(ConsoleKey.Enter);
                 return;
             }
@@ -141,7 +151,7 @@ namespace ProjetoBanco.Models
             UsuarioController usuarioController = new(context);
 
             usuarioController.RemoverConta(user);
-            Console.WriteLine("Sua conta foi deletada.");
+            Console.WriteLine("\nSua conta foi deletada.");
             EsperaTecla(ConsoleKey.Enter);
         }
         public static void Sacar(Usuario user)

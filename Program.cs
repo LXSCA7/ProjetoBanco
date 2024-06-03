@@ -313,6 +313,7 @@ internal class Program
             }
         } while (!logout);
         Escreve("Saindo da conta");
+        Console.Clear();
     }
     public static SecureString PegaSenhaEscondido()
     {

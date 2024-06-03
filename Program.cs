@@ -368,7 +368,8 @@ internal class Program
             var receber = db.Usuarios.Find(numeroConta);
             if (receber == null)
             {
-                Console.WriteLine("Conta não encontrada...");
+                Console.WriteLine("Conta não encontrada.");
+                Logado.EsperaTecla(ConsoleKey.Enter);
                 return;
             }
             Console.WriteLine($"Número da Conta: {receber.Id} | Nome: {receber.Nome} {receber.Sobrenome}");
@@ -377,18 +378,30 @@ internal class Program
             correto = correto.ToUpper();
             char resposta = correto[0];
             if (resposta == 'N')
+            {
+                Console.WriteLine("Depósito cancelado.");
+                Logado.EsperaTecla(ConsoleKey.Enter);
+                Console.Clear();
                 return;
+            }
             
-            Console.Write($"Insira o valor que será depositado para {receber.Nome} {receber.Sobrenome}: R$");
+            Console.Write($"Insira o valor que será depositado para {receber.Nome} {receber.Sobrenome}: R$ ");
             decimal valorDepositado = Decimal.Parse(Console.ReadLine());
-            // depositando...
+
+            if (valorDepositado <= 0)
+            {
+                Console.WriteLine("Impossível realizar depósito.");
+                Logado.EsperaTecla(ConsoleKey.Enter);
+                Console.Clear();
+                return;
+            }
 
             UsuariosContext context = new UsuariosContext();
             UsuarioController usuarioController = new UsuarioController(context);
             usuarioController.AddSaldo(receber, receber.Id, valorDepositado);
 
             Console.WriteLine("Depósito realizado.");
-            Thread.Sleep(500);
+            Logado.EsperaTecla(ConsoleKey.Enter);
             Console.Clear();
         }
     }

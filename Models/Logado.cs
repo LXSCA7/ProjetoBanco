@@ -161,7 +161,8 @@ namespace ProjetoBanco.Models
             decimal valorSaque;
             do
             {
-                Console.WriteLine("Digite 0 para cancelar o saque.");
+                Console.WriteLine("Seu saldo: " + user.Saldo);
+                Console.WriteLine("Digite 0 para cancelar o saque.\n");
                 Console.Write("Insira o valor: R$ ");
                 valorSaque = decimal.Parse(Console.ReadLine());
                 if (valorSaque <= 0)

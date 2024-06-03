@@ -34,10 +34,11 @@ namespace ProjetoBanco.Models
                 Console.Write("Insira sua nova senha: ");
                 senha = Console.ReadLine();
                 aprovado = Verificacao.SenhaAprovada(senha);
-                if (senha == null)
+                if (string.IsNullOrWhiteSpace(senha))
                 {
                     Console.WriteLine("Operação cancelada.");
                     EsperaTecla(ConsoleKey.Enter);
+                    return;
                 }
                 if (!aprovado)
                     Console.WriteLine("Senha não aprovada. Digite novamente. ");

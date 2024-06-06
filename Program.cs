@@ -9,6 +9,7 @@ using System.Net.NetworkInformation;
 using System.Security;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Cryptography;
 
 internal class Program
 {
@@ -131,6 +132,27 @@ internal class Program
                     string username;
                     string senha;
                     string senha2;
+                    Console.Write("Insira seu CPF: ");
+                    string CPF = Console.ReadLine();
+
+                    if (CPF.Any(x => !char.IsDigit(x)))
+                        CPF = Verificacao.CorrigeCPF(CPF);
+
+                    if (Verificacao.CPFExiste(Verificacao.FormataCPF(CPF)))
+                    {
+                        Console.WriteLine("Opa! Já existe uma conta cadastrada com o seu CPF!");
+                        Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
+                        Console.WriteLine("Não foi você que se cadastrou? Por favor, contate o nosso suporte.");
+                        Logado.EsperaTecla(ConsoleKey.Enter);
+                    }
+                    
+                    if (!Verificacao.VerificaCPF(CPF))
+                    {
+                        Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
+                        Logado.EsperaTecla(ConsoleKey.Enter);
+                        return;
+                    }
+                    CPF = Verificacao.FormataCPF(CPF);
                     do
                     {
                         erroVerificacao = false;
@@ -194,7 +216,8 @@ internal class Program
                         DataDeNascimento = nascimento,
                         Username = username,
                         Senha = senha,
-                        Saldo = 0.00M
+                        Saldo = 0.00M,
+                        CPF = CPF
                     };
 
                     UsuariosContext context = new UsuariosContext();

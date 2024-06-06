@@ -37,19 +37,7 @@ namespace ProjetoBanco.Models
 
             return true;
         }
-
-        public static string CorrigeCPF(string CPF)
-        {
-            StringBuilder newCPF = new();
-            foreach (char c in CPF)
-            {
-                if (char.IsDigit(c))
-                    newCPF.Append(c);
-            }
-
-            return newCPF.ToString();
-        }
-
+        
         public static bool VerificaCPF(string CPF)
         {
             if (CPF.Length != 11)
@@ -86,21 +74,6 @@ namespace ProjetoBanco.Models
                 return false;
 
             return true;
-        }
-
-        public static string FormataCPF(string CPF)
-        {
-            StringBuilder newCPF = new();
-            for (int i = 0; i < CPF.Length; i++)
-            {
-                newCPF.Append(CPF[i]);
-                if (i == 2 || i == 5)
-                    newCPF.Append('.');
-                if (i == 8)
-                    newCPF.Append('-');
-            }
-
-            return newCPF.ToString();
         }
 
         public static bool CPFExiste(string CPF)

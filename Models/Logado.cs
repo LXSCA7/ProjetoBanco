@@ -201,6 +201,36 @@ namespace ProjetoBanco.Models
                 Console.Clear();
             }
         }
+        
+        public static void AddCPF(Usuario user)
+        {
+            Console.WriteLine("Você ainda não cadastrou o seu CPF!");
+            Console.Write("Insira seu CPF: ");
+            string CPF = Console.ReadLine();
+
+            if (CPF.Any(x => !char.IsDigit(x)))
+                CPF = FormatacaoCPF.CorrigeCPF(CPF);
+
+            if (Verificacao.CPFExiste(FormatacaoCPF.FormataCPF(CPF)))
+            {
+                Console.WriteLine("Opa! Já existe uma conta cadastrada com o seu CPF!");
+                Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
+                Console.WriteLine("Não foi você que se cadastrou? Por favor, contate o nosso suporte.");
+                EsperaTecla(ConsoleKey.Enter);
+            }
+            
+            if (!Verificacao.VerificaCPF(CPF))
+            {
+                Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
+                EsperaTecla(ConsoleKey.Enter);
+                return;
+            }
+            CPF = FormatacaoCPF.FormataCPF(CPF);
+            
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+            usuarioController.AtualizarCPF(user, CPF);
+        }
         public static void EsperaTecla(ConsoleKey key)
         {
             Console.WriteLine("Pressione enter para continuar.");

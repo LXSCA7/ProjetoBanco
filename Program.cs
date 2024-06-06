@@ -284,8 +284,13 @@ internal class Program
     private static void InfoLogado(Usuario user)
     {
         bool logout = false;
-        do 
+        do
         {
+            if (user.CPF == null)
+            {
+                Cabecalho();
+                Logado.AddCPF(user);
+            }
             Cabecalho();
             Console.WriteLine("Olá, " + user.Nome);
             Console.WriteLine("Seu saldo: R$ " + user.Saldo);

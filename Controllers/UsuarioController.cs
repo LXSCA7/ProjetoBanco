@@ -88,5 +88,13 @@ namespace ProjetoBanco.Controllers
             _context.Update(user);
             _context.SaveChanges();
         }
+
+        public void AtualizarCPF(Usuario user, string CPF)
+        {
+            user.CPF = CPF;
+
+            _context.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

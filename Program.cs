@@ -136,9 +136,9 @@ internal class Program
                     string CPF = Console.ReadLine();
 
                     if (CPF.Any(x => !char.IsDigit(x)))
-                        CPF = Verificacao.CorrigeCPF(CPF);
+                        CPF = FormatacaoCPF.CorrigeCPF(CPF);
 
-                    if (Verificacao.CPFExiste(Verificacao.FormataCPF(CPF)))
+                    if (Verificacao.CPFExiste(FormatacaoCPF.FormataCPF(CPF)))
                     {
                         Console.WriteLine("Opa! Já existe uma conta cadastrada com o seu CPF!");
                         Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
@@ -152,7 +152,7 @@ internal class Program
                         Logado.EsperaTecla(ConsoleKey.Enter);
                         return;
                     }
-                    CPF = Verificacao.FormataCPF(CPF);
+                    CPF = FormatacaoCPF.FormataCPF(CPF);
                     do
                     {
                         erroVerificacao = false;

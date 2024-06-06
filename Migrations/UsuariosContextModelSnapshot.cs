@@ -30,6 +30,9 @@ namespace ProjetoBanco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CPF")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DataDeNascimento")
                         .HasColumnType("datetime2");
 

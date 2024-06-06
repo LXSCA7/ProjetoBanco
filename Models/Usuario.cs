@@ -15,5 +15,6 @@ namespace ProjetoBanco.Models
         public string Username { get; set; }
         public string Senha { get; set; }
         public decimal Saldo { get; set; }
+        public string CPF { get; set; }
     }
 }

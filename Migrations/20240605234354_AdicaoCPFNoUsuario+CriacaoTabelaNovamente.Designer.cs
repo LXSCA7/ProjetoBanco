@@ -12,8 +12,8 @@ using ProjetoBanco.Context;
 namespace ProjetoBanco.Migrations
 {
     [DbContext(typeof(UsuariosContext))]
-    [Migration("20240524210059_CriacaoTabelaInformacoesDosUsuarios")]
-    partial class CriacaoTabelaInformacoesDosUsuarios
+    [Migration("20240605234354_AdicaoCPFNoUsuario+CriacaoTabelaNovamente")]
+    partial class AdicaoCPFNoUsuarioCriacaoTabelaNovamente
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace ProjetoBanco.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CPF")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataDeNascimento")
                         .HasColumnType("datetime2");

@@ -12,9 +12,10 @@ namespace ProjetoBanco.Models
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public DateTime DataDeNascimento { get; set; }
+        public string CPF { get; set; }
         public string Username { get; set; }
         public string Senha { get; set; }
         public decimal Saldo { get; set; }
-        public string CPF { get; set; }
+        public string PerguntaDeSeguranca { get; set; }
     }
 }

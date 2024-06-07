@@ -145,6 +145,7 @@ internal class Program
                         Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
                         Console.WriteLine("Não foi você que se cadastrou? Por favor, contate o nosso suporte.");
                         Logado.EsperaTecla(ConsoleKey.Enter);
+                        return;
                     }
                     
                     if (!Verificacao.VerificaCPF(CPF))

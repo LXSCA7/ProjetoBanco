@@ -151,13 +151,12 @@ Você deseja depositar {Valor} para {Nome} {Sobrenome}? [S / N]:
 
 ## Updates Futuros:
 
-1. Adicionar CPF para criação de contas:
+1. Adicionar CPF para criação de contas: [✔️]
     - Ao cadastrar seu CPF, o sistema fará duas verificações, a primeira é a validação do cpf, e caso seja válido, verificará se já existe no banco de dados
     - Não será possível ter duas contas com o mesmo número de CPF.
-    - Para a função de verificação, quero usar [esse]() código em C++, vou tentar fazer uma integração de duas linguaguens diferentes no banco. Mas caso isso não seja possível, será feito na classe `Models/Verificacao.cs`
-1.  Pergunta de segurança:
+1.  Pergunta de segurança: [✔️]
     - Ao se cadastrar, o usuário terá que ter uma palavra-chave de segurança (que ainda não decidi qual será a pergunta.). Essa função é necessária para as próximas atualizações.
-1. Mudar nome de usuário.
+1. Mudar nome de usuário. [❌]
 1. "Esqueci meu nome de usuário / senha":
     - Caso o usuário tenha esquecido somente a sua senha, ele precisará informar seu CPF, palavra-chave de segurança e seu nome de usuário.
     - Caso tenha esquecido seu nome de usuário, precisará informar somente seu CPF e sua palavra-chave de segurança, além disso, a opção de alterar o nome de usuário será exibida.

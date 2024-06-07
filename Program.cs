@@ -10,6 +10,7 @@ using System.Security;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Security.Cryptography;
+using ProjetoBanco.Migrations;
 
 internal class Program
 {
@@ -207,6 +208,10 @@ internal class Program
                             erroVerificacao = true;
                         }
                     } while (erroVerificacao);
+                    Console.WriteLine("\nPergunta de segurança - Lembre sua resposta! Ela é importante para recuperação da sua conta.");
+                    Console.WriteLine("Qual o nome do seu prato favorito?");
+                    Console.Write("Resposta: ");
+                    string resposta = Console.ReadLine();
 
                     Console.Clear();
                     Usuario novoUsuario = new Usuario
@@ -217,7 +222,8 @@ internal class Program
                         Username = username,
                         Senha = senha,
                         Saldo = 0.00M,
-                        CPF = CPF
+                        CPF = CPF,
+                        PerguntaDeSeguranca = resposta
                     };
 
                     UsuariosContext context = new UsuariosContext();

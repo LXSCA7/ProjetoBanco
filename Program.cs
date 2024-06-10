@@ -297,7 +297,17 @@ internal class Program
             {
                 Cabecalho();
                 Logado.AddCPF(user);
+                if (user.CPF == null) {
+                    Escreve("Saindo da conta");
+                    Console.Clear();
+                    logout = true;
+                }
             }
+
+            if (logout == true)
+                return;
+            
+
             Cabecalho();
             Console.WriteLine("Olá, " + user.Nome);
             Console.WriteLine("Seu saldo: R$ " + user.Saldo);

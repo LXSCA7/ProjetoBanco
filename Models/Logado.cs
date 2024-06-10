@@ -221,7 +221,7 @@ namespace ProjetoBanco.Models
             
             if (!Verificacao.VerificaCPF(CPF))
             {
-                Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
+                Console.WriteLine("Seu CPF é inválido. Você realizará logout.");
                 EsperaTecla(ConsoleKey.Enter);
                 return;
             }

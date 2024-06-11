@@ -64,6 +64,10 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
             }
           },
           "imports": [

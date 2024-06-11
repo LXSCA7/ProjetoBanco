@@ -143,8 +143,6 @@ internal class Program
                     Console.WriteLine($"Olá, {nome} {sobrenome}, vamos continuar com o seu cadastro!");
                     bool erroVerificacao;
                     string username;
-                    string senha;
-                    string senha2;
                     Console.Write("Insira seu CPF: ");
                     string CPF = Console.ReadLine();
 
@@ -190,37 +188,7 @@ internal class Program
 
                     } while (erroVerificacao);
                     Console.WriteLine("Certo! Seu nome de usuário é " + username);
-                    do {
-                        erroVerificacao = false;
-                        Console.Write("Insira uma senha: ");
-                        SecureString testeSenha = PegaSenhaEscondido();
-
-                        senha = new System.Net.NetworkCredential(string.Empty, testeSenha).Password;
-
-                        if (!Verificacao.SenhaAprovada(senha))
-                        {
-                            Console.WriteLine("\nOps, sua senha não bate com os requisitos mínimos:");
-                            Console.WriteLine(" - MIN 8 CARACTERES");
-                            Console.WriteLine(" - MIN 1 CARACTER ESPECIAL");
-                            Console.WriteLine(" - MIN 1 NUMERO");
-                            Console.WriteLine(" - MIN 1 LETRA MAIÚSCULA");
-                            Console.WriteLine(" - MIN 1 LETRA MINÚSCULA");
-                            Thread.Sleep(2000);
-                            erroVerificacao = true;
-                        }
-                    } while (erroVerificacao);
-                    do
-                    {
-                        erroVerificacao = false;
-                        Console.Write("\nConfirme sua senha: ");
-                        SecureString senhaEsc = PegaSenhaEscondido();
-                        senha2 = new System.Net.NetworkCredential(string.Empty, senhaEsc).Password;
-                        if (senha2 != senha)
-                        {
-                            Console.WriteLine("\nSuas senhas não correspondem. Tente novamente.");
-                            erroVerificacao = true;
-                        }
-                    } while (erroVerificacao);
+                    string senha = PegarSenha();
                     Console.WriteLine("\nPergunta de segurança - Lembre sua resposta! Ela é importante para recuperação da sua conta.");
                     string resposta;
                     do {
@@ -257,6 +225,46 @@ internal class Program
                     Console.Clear();
     }
 
+    private static string PegarSenha()
+    {
+        string senha;
+        string senha2;
+        bool erroVerificacao;
+        do 
+        {
+            erroVerificacao = false;
+            Console.Write("Insira uma senha: ");
+            SecureString testeSenha = PegaSenhaEscondido();
+
+            senha = new System.Net.NetworkCredential(string.Empty, testeSenha).Password;
+
+            if (!Verificacao.SenhaAprovada(senha))
+            {
+                Console.WriteLine("\nOps, sua senha não bate com os requisitos mínimos:");
+                Console.WriteLine(" - MIN 8 CARACTERES");
+                Console.WriteLine(" - MIN 1 CARACTER ESPECIAL");
+                Console.WriteLine(" - MIN 1 NUMERO");
+                Console.WriteLine(" - MIN 1 LETRA MAIÚSCULA");
+                Console.WriteLine(" - MIN 1 LETRA MINÚSCULA");
+                Thread.Sleep(2000);
+                erroVerificacao = true;
+            }
+        } while (erroVerificacao);
+        do
+        {
+            erroVerificacao = false;
+            Console.Write("\nConfirme sua senha: ");
+            SecureString senhaEsc = PegaSenhaEscondido();
+            senha2 = new System.Net.NetworkCredential(string.Empty, senhaEsc).Password;
+            if (senha2 != senha)
+            {
+                Console.WriteLine("\nSuas senhas não correspondem. Tente novamente.");
+                erroVerificacao = true;
+            }
+        } while (erroVerificacao);
+
+        return senha;
+    }
     private static Usuario CasoLogin()
     {
         Console.Clear();
@@ -277,8 +285,7 @@ internal class Program
             erroVerificacao = false;
             Console.Write("Digite sua senha: ");
             SecureString loginSenhaSegura = PegaSenhaEscondido();
-            loginSenha = new System.Net.NetworkCredential(string.Empty, loginSenhaSegura).Password; // converte senha
-            // senhaTeste = Console.ReadLine();
+            loginSenha = new System.Net.NetworkCredential(string.Empty, loginSenhaSegura).Password;
             UsuariosContext context = new UsuariosContext();
             UsuarioController usuarioController = new UsuarioController(context);
 

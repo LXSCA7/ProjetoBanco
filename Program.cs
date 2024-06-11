@@ -312,9 +312,11 @@ internal class Program
         }
         return null;
     }
-    
+
+
     private static void EsqueceuSenha()
     {
+        Console.Clear();
         Cabecalho();
         Console.Write("Insira seu nome de usuário: ");
         string username = Console.ReadLine();
@@ -357,6 +359,7 @@ internal class Program
         usuarioController.MudarSenha(user, novaSenha);
         Console.WriteLine("\nSua senha foi atualizada!");
         Logado.EsperaTecla(ConsoleKey.Enter);
+        Console.Clear();
         return;
     }
     private static void InfoLogado(Usuario user)

@@ -136,3 +136,4 @@ D:\ProjetoBanco\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptog
 D:\ProjetoBanco\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\ProjetoBanco\obj\Debug\net8.0\ProjetoBanco.csproj.AssemblyReference.cache
 D:\ProjetoBanco\obj\Debug\net8.0\ProjetoB.8FE5D0C8.Up2Date
+D:\ProjetoBanco\bin\Debug\net8.0\Newtonsoft.Json.dll

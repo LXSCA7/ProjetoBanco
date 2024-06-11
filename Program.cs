@@ -125,104 +125,116 @@ internal class Program
     private static void PrimeiroCaso()
     {
         Console.Clear();
-                    Cabecalho();
-                    Console.Write("Insira seu nome: ");
-                    string nome = Console.ReadLine();
-                    Console.Write("Insira seu Sobrenome: ");
-                    string sobrenome = Console.ReadLine();
-                    Console.Write("Insira sua Data de nascimento [dd/MM/yyyy]: ");
-                    DateTime nascimento = DateTime.Parse(Console.ReadLine());
-                    nascimento = nascimento.Date;
-                    if (!Verificacao.VerificaNascimento(nascimento))
-                    {
-                        Console.WriteLine("O Banco Estrela só aceita usuários maiores de idade.");
-                        return;
-                    }
-                    Console.Clear();
-                    Cabecalho();
-                    Console.WriteLine($"Olá, {nome} {sobrenome}, vamos continuar com o seu cadastro!");
-                    bool erroVerificacao;
-                    string username;
-                    Console.Write("Insira seu CPF: ");
-                    string CPF = Console.ReadLine();
+        Cabecalho();
+        Console.Write("Insira seu nome: ");
+        string nome = Console.ReadLine();
+        Console.Write("Insira seu Sobrenome: ");
+        string sobrenome = Console.ReadLine();
+        Console.Write("Insira sua Data de nascimento [dd/MM/yyyy]: ");
+        DateTime nascimento = DateTime.Parse(Console.ReadLine());
+        nascimento = nascimento.Date;
+        if (!Verificacao.VerificaNascimento(nascimento))
+        {
+            Console.WriteLine("O Banco Estrela só aceita usuários maiores de idade.");
+            return;
+        }
+        Console.Clear();
+        Cabecalho();
+        Console.WriteLine($"Olá, {nome} {sobrenome}, vamos continuar com o seu cadastro!");
+        bool erroVerificacao;
+        string username;
+        Console.Write("Insira seu CPF: ");
+        string CPF = Console.ReadLine();
 
-                    if (CPF.Any(x => !char.IsDigit(x)))
-                        CPF = FormatacaoCPF.CorrigeCPF(CPF);
+        if (CPF.ToLower() == "test" || CPF.ToLower() == "teste")
+        {
+            string cpfTeste = CPFGenerator.GetCpf();
+            CPF = cpfTeste;
+            if (CPF == null)
+            {
+                Console.WriteLine("Erro ao gerar CPF de teste.");
+                return;
+            }
+            Console.WriteLine($"CPF de teste gerado: {CPF}");
+        }
 
-                    if (Verificacao.CPFExiste(FormatacaoCPF.FormataCPF(CPF)))
-                    {
-                        Console.WriteLine("Opa! Já existe uma conta cadastrada com o seu CPF!");
-                        Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
-                        Console.WriteLine("Não foi você que se cadastrou? Por favor, contate o nosso suporte.");
-                        Logado.EsperaTecla(ConsoleKey.Enter);
-                        return;
-                    }
-                    
-                    if (!Verificacao.VerificaCPF(CPF))
-                    {
-                        Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
-                        Logado.EsperaTecla(ConsoleKey.Enter);
-                        return;
-                    }
-                    CPF = FormatacaoCPF.FormataCPF(CPF);
-                    do
-                    {
-                        erroVerificacao = false;
-                        Console.Write("Insira um nome de usuário: ");
-                        username = Console.ReadLine();
-                        Escreve("Verificando nome de usuário");
+        if (CPF.Any(x => !char.IsDigit(x)))
+            CPF = FormatacaoCPF.CorrigeCPF(CPF);
 
-                        if (Verificacao.UsuarioExiste(username))
-                        {
-                            Console.WriteLine("Opa! Esse nome de usuário já existe! Escolha outro.");
-                            Thread.Sleep(300);
-                            erroVerificacao = true;
-                        }
+        if (Verificacao.CPFExiste(FormatacaoCPF.FormataCPF(CPF)))
+        {
+            Console.WriteLine("Opa! Já existe uma conta cadastrada com o seu CPF!");
+            Console.WriteLine("Esqueceu seu nome de usuário ou senha? Utilize a opção para isso!");
+            Console.WriteLine("Não foi você que se cadastrou? Por favor, contate o nosso suporte.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            return;
+        }
+        
+        if (!Verificacao.VerificaCPF(CPF))
+        {
+            Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            return;
+        }
+        CPF = FormatacaoCPF.FormataCPF(CPF);
+        do
+        {
+            erroVerificacao = false;
+            Console.Write("Insira um nome de usuário: ");
+            username = Console.ReadLine();
+            Escreve("Verificando nome de usuário");
 
-                        if (!Verificacao.UsernameAprovado(username))
-                        {
-                            Console.WriteLine("O nome de usuário não pode conter espaços em branco. Tente novamente.");
-                            Thread.Sleep(300);
-                            erroVerificacao = true;
-                        }
+            if (Verificacao.UsuarioExiste(username))
+            {
+                Console.WriteLine("Opa! Esse nome de usuário já existe! Escolha outro.");
+                Thread.Sleep(300);
+                erroVerificacao = true;
+            }
 
-                    } while (erroVerificacao);
-                    Console.WriteLine("Certo! Seu nome de usuário é " + username);
-                    string senha = PegarSenha();
-                    Console.WriteLine("\nPergunta de segurança - Lembre sua resposta! Ela é importante para recuperação da sua conta.");
-                    string resposta;
-                    do {
-                        Console.WriteLine("Qual o nome do seu prato favorito?");
-                        Console.Write("Resposta: ");
-                        resposta = Console.ReadLine();
+            if (!Verificacao.UsernameAprovado(username))
+            {
+                Console.WriteLine("O nome de usuário não pode conter espaços em branco. Tente novamente.");
+                Thread.Sleep(300);
+                erroVerificacao = true;
+            }
 
-                        if (resposta.IsNullOrEmpty())
-                            Console.WriteLine("A resposta não pode ficar em branco. Tente novamente.");
-                    } while (resposta.IsNullOrEmpty());
+        } while (erroVerificacao);
+        Console.WriteLine("Certo! Seu nome de usuário é " + username);
+        string senha = PegarSenha();
+        Console.WriteLine("\nPergunta de segurança - Lembre sua resposta! Ela é importante para recuperação da sua conta.");
+        string resposta;
+        do {
+            Console.WriteLine("Qual o nome do seu prato favorito?");
+            Console.Write("Resposta: ");
+            resposta = Console.ReadLine();
 
-                    Console.Clear();
-                    Usuario novoUsuario = new Usuario
-                    {
-                        Nome = nome,
-                        Sobrenome = sobrenome,
-                        DataDeNascimento = nascimento,
-                        Username = username,
-                        Senha = senha,
-                        Saldo = 0.00M,
-                        CPF = CPF,
-                        PerguntaDeSeguranca = resposta
-                    };
+            if (resposta.IsNullOrEmpty())
+                Console.WriteLine("A resposta não pode ficar em branco. Tente novamente.");
+        } while (resposta.IsNullOrEmpty());
 
-                    UsuariosContext context = new UsuariosContext();
-                    UsuarioController usuarioController = new UsuarioController(context);
-                    usuarioController.CriarConta(novoUsuario);
-                    Escreve("Criando sua conta");
-                    Console.Clear();
-                    Cabecalho();
-                    Console.WriteLine($"{nome} {sobrenome} sua conta foi criada com sucesso!");
-                    Console.WriteLine($"O Banco Estrela te da as boas-vindas!");
-                    Thread.Sleep(3000);
-                    Console.Clear();
+        Console.Clear();
+        Usuario novoUsuario = new Usuario
+        {
+            Nome = nome,
+            Sobrenome = sobrenome,
+            DataDeNascimento = nascimento,
+            Username = username,
+            Senha = senha,
+            Saldo = 0.00M,
+            CPF = CPF,
+            PerguntaDeSeguranca = resposta
+        };
+
+        UsuariosContext context = new UsuariosContext();
+        UsuarioController usuarioController = new UsuarioController(context);
+        usuarioController.CriarConta(novoUsuario);
+        Escreve("Criando sua conta");
+        Console.Clear();
+        Cabecalho();
+        Console.WriteLine($"{nome} {sobrenome} sua conta foi criada com sucesso!");
+        Console.WriteLine($"O Banco Estrela te da as boas-vindas!");
+        Thread.Sleep(3000);
+        Console.Clear();
     }
 
     private static string PegarSenha()

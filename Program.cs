@@ -325,11 +325,39 @@ internal class Program
             return;
         }
 
-        Console.WriteLine("Insira a resposta de segurança: ");
-        string resposta = Console.ReadLine();
-
         UsuariosContext context = new();
         UsuarioController usuarioController = new(context);
+        var user = context.Usuarios.SingleOrDefault(u => u.Username == username);
+
+        
+        Console.Write("Insira seu CPF: ");
+        string CPF = Console.ReadLine();
+        CPF = FormatacaoCPF.CorrigeCPF(CPF);
+        CPF = FormatacaoCPF.FormataCPF(CPF);
+
+        if (CPF.IsNullOrEmpty() || CPF != user.CPF)
+        {
+            Console.WriteLine("CPF Incorreto.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            return;
+        }
+
+        Console.Write("Insira a resposta de segurança: ");
+        string resposta = Console.ReadLine();
+
+        if (resposta.IsNullOrEmpty() || resposta.ToLower() != user.PerguntaDeSeguranca.ToLower())
+        {
+            Console.WriteLine("Resposta incorreta.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            return;
+        }
+
+        Console.WriteLine($"Olá, {user.Nome} {user.Sobrenome}.");
+        string novaSenha = PegarSenha();
+        usuarioController.MudarSenha(user, novaSenha);
+        Console.WriteLine("\nSua senha foi atualizada!");
+        Logado.EsperaTecla(ConsoleKey.Enter);
+        return;
     }
     private static void InfoLogado(Usuario user)
     {

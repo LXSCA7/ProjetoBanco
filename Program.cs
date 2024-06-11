@@ -50,9 +50,11 @@ internal class Program
                     break;
                     
                 case 5:
+                    
                     break;
 
                 case 6:
+                    EsqueceuSenha();
                     break;
                 
                 case 7:
@@ -304,6 +306,24 @@ internal class Program
         return null;
     }
     
+    private static void EsqueceuSenha()
+    {
+        Cabecalho();
+        Console.Write("Insira seu nome de usuário: ");
+        string username = Console.ReadLine();
+        if(!Verificacao.UsuarioExiste(username))
+        {
+            Console.WriteLine("Usuário inexistente.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            return;
+        }
+
+        Console.WriteLine("Insira a resposta de segurança: ");
+        string resposta = Console.ReadLine();
+
+        UsuariosContext context = new();
+        UsuarioController usuarioController = new(context);
+    }
     private static void InfoLogado(Usuario user)
     {
         bool logout = false;

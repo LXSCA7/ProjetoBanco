@@ -313,7 +313,6 @@ internal class Program
         return null;
     }
 
-
     private static void EsqueceuSenha()
     {
         Console.Clear();

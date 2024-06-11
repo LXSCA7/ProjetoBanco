@@ -48,14 +48,21 @@ internal class Program
                 case 4:
                     ListaUsuarios();
                     break;
-
+                    
                 case 5:
+                    break;
+
+                case 6:
+                    break;
+                
+                case 7:
                     Escreve("Encerrando o programa");
                     repete = false;
                     break;
+
                 default:
                     Console.WriteLine("| Opção inválida. Por favor, insira novamente!");
-                    Thread.Sleep(1000);
+                    Logado.EsperaTecla(ConsoleKey.Enter);
                     Console.Clear();
                     break;
             }
@@ -72,8 +79,10 @@ internal class Program
         Console.WriteLine("| [2] Fazer Login                            |");
         Console.WriteLine("| [3] Fazer depósito de outro banco          |");
         Console.WriteLine("| [4] Listar usuários cadastrados            |");
+        Console.WriteLine("| [5] Esqueci meu nome de usuário            |");
+        Console.WriteLine("| [6] Esqueci minha senha                    |");
         Console.WriteLine("|                                            |");
-        Console.WriteLine("| [5] Sair                                   |");
+        Console.WriteLine("| [7] Sair                                   |");
         Console.WriteLine("|                                            |");
         Console.WriteLine("+--------------------------------------------+");
         Console.Write("| SUA ESCOLHA: ");

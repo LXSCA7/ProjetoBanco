@@ -11,6 +11,7 @@ using System.ComponentModel;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Security.Cryptography;
 using ProjetoBanco.Migrations;
+using Microsoft.IdentityModel.Tokens;
 
 internal class Program
 {
@@ -210,9 +211,15 @@ internal class Program
                         }
                     } while (erroVerificacao);
                     Console.WriteLine("\nPergunta de segurança - Lembre sua resposta! Ela é importante para recuperação da sua conta.");
-                    Console.WriteLine("Qual o nome do seu prato favorito?");
-                    Console.Write("Resposta: ");
-                    string resposta = Console.ReadLine();
+                    string resposta;
+                    do {
+                        Console.WriteLine("Qual o nome do seu prato favorito?");
+                        Console.Write("Resposta: ");
+                        resposta = Console.ReadLine();
+
+                        if (resposta.IsNullOrEmpty())
+                            Console.WriteLine("A resposta não pode ficar em branco. Tente novamente.");
+                    } while (resposta.IsNullOrEmpty());
 
                     Console.Clear();
                     Usuario novoUsuario = new Usuario

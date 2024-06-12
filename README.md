@@ -7,7 +7,9 @@ O Banco estrela é um projeto de um banco fictício feito criado exclusivamente 
 
 Durante o desenvolvimento do projeto, consegui compreender melhor o funcionamento de banco de dados, autenticação de usuários, gestão de contas e transações financeiras. A experiência proporcionou uma visão detalhada de como implementar e gerenciar um sistema bancário digital.
 
- Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
+Por se tratar de um **projeto totalmente fictício e realizado apenas para estudos**, ***NÃO*** há qualquer tipo de segurança envolvendo os usernames e senhas.
+
+Para os testes serem realizados sem precisar colocar um CPF válido, utilizei uma [API](https://api.invertexto.com/api-gerador-pessoas) que gera um CPF válido em um JSON, para realizar a consulta na API, utilizei uma classe `CPFGenerator.cs`, que faz uma verificação assíncrona com a API na função `GetCpfAsync()`, e uma função síncrona, `GetCpf()`, que chama a função assíncrona e retorna uma string com o CPF obtido, além disso, utilizei o pacote Newtonsoft.Json para poder transformar o retorno da API em uma string.
 
 ## Tecnologias utilizadas:
 

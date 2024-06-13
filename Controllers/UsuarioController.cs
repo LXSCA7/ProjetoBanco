@@ -86,5 +86,13 @@ namespace ProjetoBanco.Controllers
             _context.Update(user);
             _context.SaveChanges();
         }
+
+        public void AtualizarUsername(Usuario user, string username)
+        {
+            user.Username = username;
+
+            _context.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

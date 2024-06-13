@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Security.Cryptography;
 using ProjetoBanco.Migrations;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 internal class Program
 {
@@ -50,7 +51,7 @@ internal class Program
                     break;
                     
                 case 5:
-                    
+                    EsqueceuUsername();
                     break;
 
                 case 6:
@@ -371,6 +372,86 @@ internal class Program
         Console.WriteLine("\nSua senha foi atualizada!");
         Logado.EsperaTecla(ConsoleKey.Enter);
         Console.Clear();
+        return;
+    }
+
+    private static void EsqueceuUsername() {
+        Console.Clear();
+        Cabecalho();
+        Console.Write("Insira seu CPF: ");
+        string CPF = Console.ReadLine();
+        CPF = FormatacaoCPF.CorrigeCPF(CPF);
+        CPF = FormatacaoCPF.FormataCPF(CPF);
+
+        UsuariosContext context = new();
+        UsuarioController usuarioController = new(context);
+
+        var user = context.Usuarios.SingleOrDefault(u => u.CPF == CPF);
+        if (user == null)
+        {
+            Console.WriteLine("CPF inválido ou inexistente.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            Console.Clear();
+            return;
+        }
+
+        Console.Write("Insira sua data de nascimento [dd/MM/aaaa]: ");
+        DateTime data = DateTime.Parse(Console.ReadLine());
+
+        if (data != user.DataDeNascimento)
+        {
+            Console.WriteLine("Data inválida ou incorreta.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            Console.Clear();
+            return;
+        }
+
+        Console.WriteLine("Insira a resposta para a pergunta de segurança.");
+        Console.Write("Qual o seu prato favorito? ");
+        string resposta = Console.ReadLine();
+        if (resposta != user.PerguntaDeSeguranca)
+        {
+            Console.WriteLine("Resposta incorreta.");
+            Logado.EsperaTecla(ConsoleKey.Enter);
+            Console.Clear();
+            return;
+        }
+
+        string novoUsername;
+        bool repetir;
+        do
+        {
+            repetir = false;
+            Console.Write($"Olá {user.Nome} {user.Sobrenome}, insira seu nome novo de usuário: ");
+            novoUsername = Console.ReadLine();
+
+            if (novoUsername == user.Username) 
+            {
+                Console.WriteLine("Seu novo nome de usuário não pode ser igual o anterior.");
+                Logado.EsperaTecla(ConsoleKey.Enter);
+                Console.Clear();
+                return;
+            }
+
+            if (!Verificacao.UsernameAprovado(novoUsername))
+            {
+                Console.WriteLine("Seu nome de usuário é inválido.");
+                Logado.EsperaTecla(ConsoleKey.Enter);
+                Console.Clear();
+                return;
+            }
+
+
+            if (Verificacao.UsuarioExiste(novoUsername))
+            {
+                Console.WriteLine("Seu nome de usuário deve ser único. Tente novamente.");
+                repetir = true;
+            }
+        } while (repetir);
+
+        usuarioController.AtualizarUsername(user, novoUsername);
+        Console.WriteLine($"Suas credenciais foram atualizadas com sucesso. Seu novo nome de usuário é: {user.Username}");
+        Logado.EsperaTecla(ConsoleKey.Enter);
         return;
     }
     private static void InfoLogado(Usuario user)

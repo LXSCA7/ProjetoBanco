@@ -34,7 +34,7 @@ Para os testes serem realizados sem precisar colocar um CPF válido, utilizei um
 
 Ao iniciar o programa, uma interface do banco em console é exibida pro usuário com as seguintes opções:
 
-![Menu inicial](Imagens/menu-inicial.png)
+![Menu inicial](Imagens/image.png)
 
 O menu é chamado pela função `Menu();`, além disso, também tem a função `Cabecalho();` que escreve o seguinte na tela:
 
@@ -86,7 +86,7 @@ As verificações em comentários acima, consistem no seguinte:
 Se todos os requisitos forem cumpridos, a seguinte mensagem deverá aparecer na tela:
 
 ```
-Suas redenciais cadastradas com sucesso! Seja bem-vindo(a) ao Banco Estrela!
+Suas credenciais cadastradas com sucesso! Seja bem-vindo(a) ao Banco Estrela!
 ```
 
 E novamente o menu de opções aparece.

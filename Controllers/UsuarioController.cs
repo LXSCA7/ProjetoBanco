@@ -19,16 +19,6 @@ namespace ProjetoBanco.Controllers
 
         public void CriarConta(Usuario usuario)
         {
-            // , string nome, string sobrenome, DateTime dataNascimento, string user, string senha
-            // usuario = new Usuario
-            // {
-            //     Nome = nome,
-            //     Sobrenome = sobrenome,
-            //     DataDeNascimento = dataNascimento,
-            //     Username = user,
-            //     Senha = senha
-            // };
-
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
         }

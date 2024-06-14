@@ -185,6 +185,13 @@ internal class Program
             username = Console.ReadLine();
             Escreve("Verificando nome de usuário");
 
+            if (username.IsNullOrEmpty())
+            {
+                Console.WriteLine("Nome de usuário não pode ficar em branco.");
+                Thread.Sleep(300);
+                erroVerificacao = true;
+            }
+
             if (Verificacao.UsuarioExiste(username))
             {
                 Console.WriteLine("Opa! Esse nome de usuário já existe! Escolha outro.");

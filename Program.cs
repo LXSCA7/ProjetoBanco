@@ -170,8 +170,8 @@ internal class Program
             Logado.EsperaTecla(ConsoleKey.Enter);
             return;
         }
-        
-        if (!Verificacao.VerificaCPF(CPF))
+
+        if (!Verificacao.VerificaCPF(CPF) || CPF.All(c => c == CPF[0]))
         {
             Console.WriteLine("Seu CPF é inválido. Infelizmente não podemos prosseguir com a criação da conta.");
             Logado.EsperaTecla(ConsoleKey.Enter);

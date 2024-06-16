@@ -22,7 +22,13 @@ internal class Program
         bool repete = true;
         do {
             Menu();
-            int esc = Int32.Parse(Console.ReadLine());
+            int esc;
+            string input = Console.ReadLine();
+            bool sucesso = Int32.TryParse(input, out esc);
+            if (!sucesso)
+            {
+                esc = 99;
+            }    
             switch (esc)
             {
                 case 1:

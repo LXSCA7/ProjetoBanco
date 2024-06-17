@@ -124,5 +124,21 @@ namespace BancoEstrelaTests
             var userCriado = context.Usuarios.SingleOrDefault(u => u.Id == user.Id);
             Assert.Equal(user, userCriado);
         }
+
+        [Fact]
+        public void ExcluiConta_DeveExcluirConta_ERetornarNull()
+        {
+    
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+            var userLogado = usuarioController.RealizaLogin("conta_removida", "Senh@F0rte");
+            int id = userLogado.Id;
+
+            usuarioController.RemoverConta(userLogado);
+
+            var userDeletado = context.Usuarios.SingleOrDefault(u => u.Id == id);
+
+            Assert.Null(userDeletado);
+        }
     }
 }

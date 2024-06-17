@@ -49,6 +49,8 @@ namespace ProjetoBanco.Controllers
 
         public void TransferirEntreContas(Usuario user1, Usuario user2, decimal valor)
         {
+            if (user1.Saldo < valor)
+                throw new Exception("Erro: saldo do usuario menor que valor.");
             user1.Saldo -= valor;
             user2.Saldo += valor;
 

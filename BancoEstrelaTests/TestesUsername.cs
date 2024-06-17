@@ -15,7 +15,7 @@ namespace BancoEstrelaTests
             string username = "nome_de_usuario";
 
             bool resultado = Verificacao.UsernameAprovado(username);
-        
+            
             Assert.True(resultado);
         }
 

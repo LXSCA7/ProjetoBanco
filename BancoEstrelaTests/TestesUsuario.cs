@@ -17,7 +17,7 @@ namespace BancoEstrelaTests
             var user1 = new Usuario() {
                 Nome = "Joao",
                 Sobrenome = "da Silva",
-                CPF = "123.123.123-12",
+                Username = "joaodasilva",
                 Senha = "MyStr0ngPassword(!)",
                 Saldo = 150.00M
             };
@@ -25,7 +25,7 @@ namespace BancoEstrelaTests
             var user2 = new Usuario() {
                 Nome = "Carlos",
                 Sobrenome = "Alberto",
-                CPF = "321.321.321-32",
+                Username = "carlos_alberto",
                 Senha = "SenhaF0rte(!)",
                 Saldo = 2500.00M
             };
@@ -37,6 +37,11 @@ namespace BancoEstrelaTests
             UsuarioController usuarioController = new(context);
 
             usuarioController.TransferirEntreContas(user1, user2, valor);
+            decimal novoSaldo = user1.Saldo;
+            
+            // excluindo contas de teste 
+            usuarioController.RemoverConta(user1);
+            usuarioController.RemoverConta(user2);
 
             Assert.Equal(saldoUsuario, user1.Saldo);
         }
@@ -48,6 +53,7 @@ namespace BancoEstrelaTests
             {
                 Nome = "Joao",
                 Sobrenome = "da Silva",
+                Username = "joaodasilva",
                 CPF = "123.123.123-12",
                 Senha = "MyStr0ngPassword(!)",
                 Saldo = 150.00M
@@ -57,6 +63,7 @@ namespace BancoEstrelaTests
             {
                 Nome = "Carlos",
                 Sobrenome = "Alberto",
+                Username = "carlos_alberto",
                 CPF = "321.321.321-32",
                 Senha = "SenhaF0rte(!)",
                 Saldo = 2500.00M
@@ -86,6 +93,36 @@ namespace BancoEstrelaTests
             bool resultado = usuarioController.SenhaCorreta(username, senha); // busca no banco de dados
 
             Assert.True(resultado);
+        }
+
+        // [Fact]
+        // public void ConferePerguntaDeSeguranca_DeveRetornarFalse_ParaRespostasIncorretas()
+        // {
+        //     string username = ""
+        // }
+
+        [Fact]
+        public void CriaConta_DeveCriarContaDeUsuario_eRetornarUsuario()
+        {
+           Usuario user = new Usuario 
+           {
+            Nome = "Conta",
+            Sobrenome = "Removida",
+            Username = "conta_removida",
+            CPF = "000.111.222-33",
+            DataDeNascimento = DateTime.Parse("17/06/2024"),
+            Saldo = 0,
+            Senha = "Senh@F0rte",
+            PerguntaDeSeguranca = "Comida"
+           };
+
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+
+            usuarioController.CriarConta(user);
+
+            var userCriado = context.Usuarios.SingleOrDefault(u => u.Id == user.Id);
+            Assert.Equal(user, userCriado);
         }
     }
 }

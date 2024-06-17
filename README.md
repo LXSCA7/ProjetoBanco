@@ -34,7 +34,7 @@ O Banco estrela é um sistema de banco virtual desenvoldido para fins educaciona
 - **C#**: Linguagem de programação principal.
 - **.NET Core**: Plataforma utilizada para desenvolver a aplicação.
 - **Entity Framework Core**: Framework de mapeamento objeto-relacional _(ORM)_ para acessar o banco de dados.
-- **SQLite**: Banco de dados embutido utilizado para armazenar informações dos usuários.
+- **SQL**: Banco de dados embutido utilizado para armazenar informações dos usuários.
 - **Console Application**: Interface de linha de comando utilizada para interação com o usuário.
 - **Newtonsoft.Json**: Biblioteca utilizada para manipulação de dados JSON, usada para interpretar o retorno da API de geração de CPF.
 

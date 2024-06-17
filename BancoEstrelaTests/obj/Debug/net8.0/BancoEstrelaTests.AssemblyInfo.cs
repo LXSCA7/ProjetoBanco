@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BancoEstrelaTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab5ad42baf5f3728871b4256327ff7d35fc912fb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6cc42ae5d3803a10fa82988ddba7eeacbc6adfc9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BancoEstrelaTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BancoEstrelaTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

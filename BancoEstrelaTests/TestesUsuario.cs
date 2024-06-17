@@ -72,5 +72,20 @@ namespace BancoEstrelaTests
 
             Assert.Equal("Erro: saldo do usuario menor que valor.", exception.Message);
         }
+    
+        [Fact]
+        public void ConfereSenhaDoUsuario_DeveRetornarTrue_ParaSenhasCorretas()
+        {
+            // usuario e senha existentes no DB
+            string username = "teste"; 
+            string senha = "Teste12#";
+
+            UsuariosContext context = new();
+            UsuarioController usuarioController = new(context);
+
+            bool resultado = usuarioController.SenhaCorreta(username, senha); // busca no banco de dados
+
+            Assert.True(resultado);
+        }
     }
 }

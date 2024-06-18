@@ -105,10 +105,18 @@ namespace ProjetoBanco.Models
                 return;
             }
 
+            DateTime data = DateTime.Now;
+
             UsuariosContext context = new UsuariosContext();
             var usuarioController = new UsuarioController(context);
             usuarioController.TransferirEntreContas(user, receber, valorTransferencia);
             Console.WriteLine("Transferência realizada com sucesso.");
+
+            ExtratoContext contextEx = new();
+            ExtratoController extratoController = new(contextEx);
+
+            extratoController.CadastrarTransferencia(user, receber, valorTransferencia, data);
+
             EsperaTecla(ConsoleKey.Enter);
         }
     

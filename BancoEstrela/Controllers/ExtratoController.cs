@@ -18,7 +18,7 @@ namespace ProjetoBanco.Controllers
         }
 
 
-        public void CadastrarTransferencia(Usuario user1, Usuario user2, decimal valorTransferencia, DateTime data)
+        public void CadastrarTransferencia(Usuario user1, Usuario user2, decimal valorTransferencia)
         {
             Extrato extrato = new()
             {
@@ -45,6 +45,20 @@ namespace ProjetoBanco.Controllers
 
             _context.Add(extrato);
             _context.SaveChanges();
+        }
+
+        public void CadastrarSaque(Usuario user, decimal valorSaque)
+        {
+           Extrato extrato = new()
+            {
+                Tipo = "Saque",
+                ContaQueRealizou = user.Id,
+                valor = valorSaque,
+                DataRealizada = DateTime.Now
+            };
+
+            _context.Add(extrato);
+            _context.SaveChanges(); 
         }
         public List<Extrato> ObterTransferencias(Usuario user)
         {

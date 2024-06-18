@@ -115,7 +115,7 @@ namespace ProjetoBanco.Models
             ExtratoContext contextEx = new();
             ExtratoController extratoController = new(contextEx);
 
-            extratoController.CadastrarTransferencia(user, receber, valorTransferencia, data);
+            extratoController.CadastrarTransferencia(user, receber, valorTransferencia);
 
             EsperaTecla(ConsoleKey.Enter);
         }
@@ -191,6 +191,10 @@ namespace ProjetoBanco.Models
             UsuarioController usuarioController = new(context);
             usuarioController.Sacar(user, valorSaque);
             Console.WriteLine($"Saque realizado. Novo saldo: R$ {user.Saldo}");
+
+            ExtratoController extratoController = new(new ExtratoContext());
+            extratoController.CadastrarSaque(user, valorSaque);
+
             EsperaTecla(ConsoleKey.Enter);
         }
         public static void MostrarInformacoes(Usuario user)

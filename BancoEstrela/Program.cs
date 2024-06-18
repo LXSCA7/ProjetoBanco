@@ -635,7 +635,7 @@ internal class Program
             DateTime data = DateTime.Now;
 
             ExtratoController extratoController = new(new ExtratoContext());
-            extratoController.CadastrarDeposito(receber, valorDepositado, data);
+            extratoController.CadastrarDeposito(receber, valorDepositado);
 
             Logado.EsperaTecla(ConsoleKey.Enter);
             Console.Clear();

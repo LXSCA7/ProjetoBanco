@@ -32,5 +32,10 @@ namespace ProjetoBanco.Controllers
             _context.Add(extrato);
             _context.SaveChanges();
         }
+
+        public List<Extrato> ObterTransferencias(Usuario user)
+        {
+            return _context.Extrato.Where(e => e.ContaQueRealizou == user.Id || e.ContaQueRecebeu == user.Id).ToList();
+        }
     }
 }

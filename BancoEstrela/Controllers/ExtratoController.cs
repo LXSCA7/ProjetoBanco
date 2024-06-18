@@ -33,6 +33,19 @@ namespace ProjetoBanco.Controllers
             _context.SaveChanges();
         }
 
+        public void CadastrarDeposito(Usuario user, decimal valorTransferencia, DateTime data)
+        {
+            Extrato extrato = new()
+            {
+                Tipo = "Transferência",
+                ContaQueRealizou = user.Id,
+                valor = valorTransferencia,
+                DataRealizada = data
+            };
+
+            _context.Add(extrato);
+            _context.SaveChanges();
+        }
         public List<Extrato> ObterTransferencias(Usuario user)
         {
             return _context.Extrato.Where(e => e.ContaQueRealizou == user.Id || e.ContaQueRecebeu == user.Id).ToList();

@@ -23,6 +23,13 @@ namespace ProjetoBanco.Controllers
             _context.SaveChanges();
         }
 
+        public Usuario ObterPorId(int? id)
+        {
+            if (!id.HasValue)
+                return null;
+                
+            return _context.Usuarios.SingleOrDefault(u => u.Id == id);
+        }
         public void AddSaldo(Usuario user, int id,decimal valor)
         {
             var serAdicionado = _context.Usuarios.Find(id);

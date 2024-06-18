@@ -26,21 +26,21 @@ namespace ProjetoBanco.Controllers
                 ContaQueRealizou = user1.Id,
                 valor = valorTransferencia,
                 ContaQueRecebeu = user2.Id,
-                DataRealizada = data
+                DataRealizada = DateTime.Now
             };
 
             _context.Add(extrato);
             _context.SaveChanges();
         }
 
-        public void CadastrarDeposito(Usuario user, decimal valorTransferencia, DateTime data)
+        public void CadastrarDeposito(Usuario user, decimal valorTransferencia)
         {
             Extrato extrato = new()
             {
                 Tipo = "Depósito",
                 ContaQueRealizou = user.Id,
                 valor = valorTransferencia,
-                DataRealizada = data
+                DataRealizada = DateTime.Now
             };
 
             _context.Add(extrato);

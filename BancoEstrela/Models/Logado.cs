@@ -239,6 +239,59 @@ namespace ProjetoBanco.Models
             UsuarioController usuarioController = new(context);
             usuarioController.AtualizarCPF(user, CPF);
         }
+    
+        public static void MostraExtrato(Usuario user)
+        {
+            Console.WriteLine("+---------------------+");
+            Console.WriteLine("|  BANCO  ★  ESTRELA  |");
+            Console.WriteLine("+---------------------+\n");
+            Console.WriteLine("+---------------------+");
+            Console.WriteLine("|       EXTRATO       |");
+            Console.WriteLine("+---------------------+");
+
+            ExtratoContext contextEx = new();
+            ExtratoController extratoController = new(contextEx);
+
+            UsuariosContext contextU = new();
+            UsuarioController usuarioController = new(contextU);
+
+
+            List<Extrato> transferencias = extratoController.ObterTransferencias(user);
+
+            foreach (var extrato in transferencias)
+            {
+                Usuario outroUser = new();
+                if (user.Id == extrato.ContaQueRecebeu)
+                    outroUser = usuarioController.ObterPorId(extrato.ContaQueRealizou);
+                else
+                    outroUser = usuarioController.ObterPorId(extrato.ContaQueRecebeu);
+
+                
+                    
+                string outroNome = outroUser.Nome;
+                string tipo = extrato.Tipo;
+                string descricao = string.Empty;
+                if (tipo == "Transferência")
+                {
+                    if (extrato.ContaQueRealizou == user.Id)
+                    {
+                        descricao = $"Transfêrencia realizada de {user.Nome} para {outroNome}";
+                    }
+                    else
+                    {
+                        descricao = $"Transfêrencia recebida de {outroNome} para {user.Nome}";
+                    }
+                }
+                else
+                {
+                    descricao = $"Saque realizado";
+                }
+                
+                Console.WriteLine($"{extrato.DataRealizada} - {descricao} | Valor: R$ {extrato.valor}");
+            }
+
+            EsperaTecla(ConsoleKey.Enter);
+        }
         public static void EsperaTecla(ConsoleKey key)
         {
             Console.WriteLine("Pressione enter para continuar.");
@@ -247,5 +300,6 @@ namespace ProjetoBanco.Models
 
             }
         }
+    
     }
 }

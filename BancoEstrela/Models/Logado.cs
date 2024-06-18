@@ -267,8 +267,9 @@ namespace ProjetoBanco.Models
                     outroUser = usuarioController.ObterPorId(extrato.ContaQueRecebeu);
 
                 
-                    
-                string outroNome = outroUser.Nome;
+                string outroNome = String.Empty;
+                if (outroUser != null)
+                    outroNome = outroUser.Nome;
                 string tipo = extrato.Tipo;
                 string descricao = string.Empty;
                 if (tipo == "Transferência")

@@ -37,7 +37,7 @@ namespace ProjetoBanco.Controllers
         {
             Extrato extrato = new()
             {
-                Tipo = "Transferência",
+                Tipo = "Depósito",
                 ContaQueRealizou = user.Id,
                 valor = valorTransferencia,
                 DataRealizada = data

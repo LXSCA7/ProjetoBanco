@@ -631,6 +631,12 @@ internal class Program
             usuarioController.AddSaldo(receber, receber.Id, valorDepositado);
 
             Console.WriteLine("Depósito realizado.");
+
+            DateTime data = DateTime.Now;
+
+            ExtratoController extratoController = new(new ExtratoContext());
+            extratoController.CadastrarDeposito(receber, valorDepositado, data);
+
             Logado.EsperaTecla(ConsoleKey.Enter);
             Console.Clear();
         }

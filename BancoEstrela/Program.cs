@@ -493,10 +493,11 @@ internal class Program
             Console.WriteLine("[1] Conferir suas informações");
             Console.WriteLine("[2] Realizar um saque");
             Console.WriteLine("[3] Realizar uma transferência");
-            Console.WriteLine("[4] Mudar senha");
-            Console.WriteLine("[5] Deletar sua conta\n");
+            Console.WriteLine("[4] Visualizar extrato.");
+            Console.WriteLine("[5] Mudar senha");
+            Console.WriteLine("[6] Deletar sua conta\n");
 
-            Console.WriteLine("[6] Sair");
+            Console.WriteLine("[7] Sair");
             Console.Write("Escolha: ");
             int esc = Int32.Parse(Console.ReadLine());
             switch (esc)
@@ -520,11 +521,16 @@ internal class Program
                     break;
                 case 4:
                     Console.Clear();
+                    Logado.MostraExtrato(user);
+                    Console.Clear();
+                    break;
+                case 5:
+                    Console.Clear();
                     Cabecalho();
                     Logado.MudarSenha(user);
                     Console.Clear();
                     break;
-                case 5:
+                case 6:
                     Console.Clear();
                     Cabecalho();
                     Logado.ApagarConta(user);

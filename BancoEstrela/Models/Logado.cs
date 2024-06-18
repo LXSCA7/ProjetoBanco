@@ -283,6 +283,10 @@ namespace ProjetoBanco.Models
                         descricao = $"Transfêrencia recebida de {outroNome} para {user.Nome}";
                     }
                 }
+                else if (tipo == "Depósito")
+                {
+                    descricao = $"Depósito realizado";
+                }
                 else
                 {
                     descricao = $"Saque realizado";

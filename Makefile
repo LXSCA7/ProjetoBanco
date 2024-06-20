@@ -1,4 +1,6 @@
 banco:
-	cd .\BancoEstrela\ && dotnet run
+	@echo Inicializando o Banco Estrela...
+	@cd .\BancoEstrela\ && dotnet run
 tests:
-	cd BancoEstrelaTests && dotnet test
+	@echo
+	@cd BancoEstrelaTests && dotnet test

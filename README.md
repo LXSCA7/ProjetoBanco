@@ -1,7 +1,6 @@
 
 # Banco Estrela ★
 
-Projeto não finalizado.
 Início em 23/05/2024
 
 ## Sumário

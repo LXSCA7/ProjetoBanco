@@ -95,12 +95,6 @@ namespace BancoEstrelaTests
             Assert.True(resultado);
         }
 
-        // [Fact]
-        // public void ConferePerguntaDeSeguranca_DeveRetornarFalse_ParaRespostasIncorretas()
-        // {
-        //     string username = ""
-        // }
-
         [Fact]
         public void CriaConta_DeveCriarContaDeUsuario_eRetornarUsuario()
         {

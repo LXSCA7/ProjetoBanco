@@ -67,10 +67,22 @@ Clone o repositório para a sua máquina:
 git clone https://github.com/LXSCA7/ProjetoBanco.git
 ```
 
-Vá para a pasta do projeto:
+Caso tenha o make instalado:
 
-```cd
-cd ProjetoBanco
+```bash
+make banco
+```
+
+Para testes unitários:
+
+```bash
+make tests
+```
+
+Caso não tenha o make:
+
+```bash
+cd BancoEstrela
 ```
 
 Compile e execute o projeto:
